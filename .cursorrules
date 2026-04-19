@@ -1,0 +1,72 @@
+You are building Film Club — the social home of film.
+
+WHAT FILM CLUB IS:
+- A social app where film lovers log films, rate them, debate them, and share their taste
+- The core differentiator from Letterboxd: content reaches an audience based on taste overlap, not just followers
+- Every interaction should feel like something HAPPENS — log a film, get a response, start a debate
+- The post-viewing social moment is completely unclaimed. Film Club claims it.
+
+BRAND & AESTHETIC:
+- Background: Cream #FDF9E3
+- Primary accent: Red #FF5757
+- Dark navy (text): #1A1929
+- Muted grey: #7A7890
+- Card background: #FFF8D6
+- Typography: Anton (headings, scores, bold statements), DM Sans (body text), DM Mono (labels, metadata)
+- Feel: cinematic, premium, warm — Blockbuster Video meets A24
+- NOT: white, clinical, generic, or utility-feeling
+- Every screen should feel like a place you want to hang out, not a form you fill in
+- Gen Z film lovers should clock it immediately and feel it was made for them
+
+TECH STACK:
+- Frontend: Next.js 14 with App Router, Tailwind CSS
+- Backend: Supabase (auth, database, real-time, storage)
+- Film data: TMDB API (themoviedb.org)
+- Deployment: Vercel
+- Language: TypeScript
+
+CORE MVP FEATURES (build in this order):
+1. Auth — sign up, log in, onboarding with taste calibration
+2. Film search — via TMDB API, fast, beautiful
+3. Film logging — rate 0-10 (one decimal), short review, feel tag
+4. Social feed — taste-matched discovery feed, NOT just followers
+5. Reactions and reply threads on logs
+6. Film Cards — auto-generated shareable image when a film is logged
+7. Film Passport — user profile showing film history, ratings, taste identity
+
+FILM CLUB RATING SYSTEM:
+- Score is 0-10 with one decimal place (e.g. 8.3, 7.7, 9.1)
+- Categories: Feel (emotional impact), Pull (pacing/hold), Craft (direction/cinematography), Performances, Replay (would watch again)
+- Each category scored separately, overall FC Rating is the weighted average
+- This is Film Club's proprietary rating — it should feel authoritative, not casual
+
+APP COPY & VOICE:
+- "What did it make you feel?" not "Write a review"
+- "Log it" not "Submit"
+- "Your Passport" not "Your Profile"
+- "The Club" not "The Community"
+- "FC Rating" not "Your Score"
+- Confident, cinematic, slightly provocative
+- Never generic, never corporate
+
+FONTS (load from Google Fonts):
+- Anton: https://fonts.google.com/specimen/Anton
+- DM Sans: https://fonts.google.com/specimen/DM+Sans
+- DM Mono: https://fonts.google.com/specimen/DM+Mono
+
+ALWAYS:
+- Use the Film Club colour palette — never default grey/white/blue
+- Use Anton for any score, rating, or headline element
+- Make empty states beautiful — never a blank screen
+- Prioritise mobile-first design (375px base)
+- Keep interactions fast — logging a film must take under 30 seconds
+- Film posters should always be displayed with rounded corners (12px)
+- The FC Rating number should always be displayed in Anton, red (#FF5757), large
+- Every screen transition should feel smooth and intentional
+
+NEVER:
+- Use blue as an accent colour
+- Use generic sans-serif for headlines
+- Show a plain white background
+- Use the word "users" in copy — they are "members" or "film lovers"
+- Build anything that makes Film Club feel like a database (that's IMDb/Letterboxd)
