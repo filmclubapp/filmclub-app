@@ -7,7 +7,7 @@
    ============================================================ */
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Suspense,
   useCallback,
@@ -227,8 +227,65 @@ function PlaceholderTab({ label }: { label: string }) {
    ============================================================ */
 function ReviewPage() {
   const [film, setFilm] = useState<FilmSearchResult | null>(null);
+  const [prefilling, setPrefilling] = useState(false);
   const { user } = useAuth();
   const watchlist = useWatchlist(user?.id);
+  const searchParams = useSearchParams();
+
+  // Auto-select film when ?tmdb= param is present (e.g. from Film of the Week / recommendations)
+  useEffect(() => {
+    const tmdbParam = searchParams.get("tmdb");
+    if (!tmdbParam || film) return;
+    const tmdbId = parseInt(tmdbParam);
+    if (isNaN(tmdbId)) return;
+
+    const titleParam = searchParams.get("title");
+    const posterParam = searchParams.get("poster");
+
+    if (titleParam) {
+      // Use the params directly — no API call needed
+      setFilm({
+        id: `tmdb-${tmdbId}`,
+        tmdbId,
+        title: decodeURIComponent(titleParam),
+        year: searchParams.get("year") ?? "",
+        director: "",
+        runtime: "",
+        tmdbPoster: posterParam ? decodeURIComponent(posterParam) : undefined,
+        accent: "#FF4A4A",
+        genre_ids: [],
+      });
+    } else {
+      // Fetch full details from TMDB
+      setPrefilling(true);
+      getFilmDetails(tmdbId)
+        .then((details) => {
+          setFilm({
+            id: `tmdb-${tmdbId}`,
+            tmdbId,
+            title: details.title,
+            year: details.release_date?.slice(0, 4) ?? "",
+            director: details.credits?.crew.find((c) => c.job === "Director")?.name ?? "",
+            runtime: details.runtime ? `${details.runtime}m` : "",
+            tmdbPoster: details.poster_path ?? undefined,
+            backdrop_path: details.backdrop_path ?? undefined,
+            accent: "#FF4A4A",
+            genre_ids: details.genre_ids ?? [],
+          });
+        })
+        .catch(() => {/* let user search manually */})
+        .finally(() => setPrefilling(false));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  if (prefilling) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-[#F4EFD8]/40 animate-pulse">Loading film…</p>
+      </div>
+    );
+  }
 
   if (!film) {
     return <FilmSearch onPick={setFilm} watchlist={watchlist} />;

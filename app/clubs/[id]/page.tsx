@@ -17,6 +17,7 @@ import {
   getPostReactions,
   REACTION_TYPES,
   REACTION_LABELS,
+  useLikePost,
   type ReactionType,
   useClubFeed,
   useClubMembership,
@@ -144,19 +145,19 @@ export default function ClubDetailPage() {
           {club.cover_tmdb_backdrop && (
             <div
               className="absolute inset-0 opacity-60"
-              style={{
+          style={{
                 backgroundImage: `url(${TMDB_WIDE}${club.cover_tmdb_backdrop})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center top",
-              }}
-            />
+          }}
+        />
           )}
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(14,13,24,0.3) 0%, rgba(14,13,24,0.95) 100%)" }} />
 
-          {/* Back button */}
+        {/* Back button */}
           <div className="absolute top-[max(1rem,env(safe-area-inset-top))] left-4 z-20">
-            <Link
-              href="/clubs"
+        <Link
+          href="/clubs"
               className="flex items-center gap-1.5 rounded-full bg-black/40 backdrop-blur-sm border border-white/[0.1] px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-[#F4EFD8]/70 transition hover:text-[#F4EFD8]"
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -181,10 +182,10 @@ export default function ClubDetailPage() {
               </span>
               <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-[#F4EFD8]/50">
                 {posts.length} posts
-              </span>
+            </span>
             </div>
           </div>
-        </div>
+          </div>
 
         {/* JOIN/LEAVE BAR */}
         <div className="flex items-center gap-3 border-b border-white/[0.06] px-4 py-3">
@@ -205,7 +206,7 @@ export default function ClubDetailPage() {
           >
             LOG FILM
           </Link>
-        </div>
+      </div>
 
         {/* FILM STILLS CAROUSEL (from shared logs) */}
         {filmStills.length > 0 && (
@@ -344,13 +345,13 @@ export default function ClubDetailPage() {
               ) : null}
 
               {/* POSTS */}
-              {feedLoading ? (
+          {feedLoading ? (
                 <div className="py-8 text-center">
                   <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#F4EFD8]/40">
                     Loading...
-                  </p>
-                </div>
-              ) : posts.length === 0 ? (
+              </p>
+            </div>
+          ) : posts.length === 0 ? (
                 <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 text-center">
                   <p className="font-anton text-[18px] text-[#F4EFD8]">NO POSTS YET</p>
                   <p className="mt-2 font-mono text-[9px] uppercase tracking-[0.14em] text-[#F4EFD8]/40">
@@ -645,6 +646,24 @@ function PostCard({ post, currentUserId }: { post: any; currentUserId?: string }
   // Reaction state (BeReal-style quick reactions)
   const [reactions, setReactions] = useState<{ emoji: ReactionType; count: number; user_ids: string[] }[]>([]);
   const [reactionsLoaded, setReactionsLoaded] = useState(false);
+  // Like state (heart button — optimistic UI)
+  const { like, unlike, fetchLikedPostIds } = useLikePost(currentUserId);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(post.likes_count ?? 0);
+
+  // Load initial like state
+  useEffect(() => {
+    if (!currentUserId) return;
+    fetchLikedPostIds([post.id]).then((ids) => setIsLiked(ids.has(post.id)));
+  }, [post.id, currentUserId, fetchLikedPostIds]);
+
+  const handleLike = async () => {
+    const next = !isLiked;
+    setIsLiked(next);
+    setLikesCount((c: number) => Math.max(0, c + (next ? 1 : -1)));
+    if (next) await like(post.id);
+    else await unlike(post.id);
+  };
 
   const hasSpoilers = hasFilm && post.film_logs?.has_spoilers && !spoilerRevealed && !isMe;
   const bodyText = post.body || (hasFilm ? post.film_logs?.review_text : null);
@@ -890,6 +909,31 @@ function PostCard({ post, currentUserId }: { post: any; currentUserId?: string }
               </button>
             );
           })}
+          {/* Like button (heart) */}
+          <button
+            type="button"
+            onClick={handleLike}
+            className="flex items-center gap-1 rounded-full px-2 py-0.5 transition active:scale-90 hover:bg-white/[0.05]"
+            aria-label={isLiked ? "Unlike" : "Like"}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill={isLiked ? RED : "none"}
+              stroke={isLiked ? RED : "rgba(244,239,216,0.35)"}
+              strokeWidth="1.75"
+              className="transition-all duration-150"
+            >
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            {likesCount > 0 && (
+              <span className={`font-mono text-[8px] ${isLiked ? "text-fc-red" : "text-[#F4EFD8]/35"}`}>
+                {likesCount}
+              </span>
+            )}
+          </button>
+
           {/* Reply button */}
           <button
             type="button"
@@ -1039,7 +1083,7 @@ function PostCard({ post, currentUserId }: { post: any; currentUserId?: string }
                     <polygon points="22 2 15 22 11 13 2 9 22 2" />
                   </svg>
                 </button>
-              </div>
+                </div>
             </div>
           )}
         </div>
@@ -1196,7 +1240,7 @@ function ClubRankings({ clubId, members }: { clubId: string; members: any[] }) {
             </p>
             <p className="font-mono text-[6px] uppercase tracking-[0.14em] text-[#F4EFD8]/30">AVG</p>
           </div>
-        </div>
+      </div>
       ))}
     </div>
   );

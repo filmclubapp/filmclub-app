@@ -1105,6 +1105,39 @@ export function useInviteEligibility(userId: string | undefined) {
    current user has already seen this week's reveal.
    ============================================================ */
 
+/* ---- Post likes — heart button with optimistic UI ---- */
+export function useLikePost(userId: string | undefined) {
+  const like = useCallback(async (postId: string) => {
+    if (!userId) return { error: "not authenticated" };
+    const { error } = await supabase
+      .from("post_likes")
+      .insert({ user_id: userId, post_id: postId });
+    return { error };
+  }, [userId]);
+
+  const unlike = useCallback(async (postId: string) => {
+    if (!userId) return;
+    await supabase
+      .from("post_likes")
+      .delete()
+      .eq("user_id", userId)
+      .eq("post_id", postId);
+  }, [userId]);
+
+  /** Batch-fetch which of the given post IDs the current user has liked. */
+  const fetchLikedPostIds = useCallback(async (postIds: string[]): Promise<Set<string>> => {
+    if (!userId || postIds.length === 0) return new Set();
+    const { data } = await supabase
+      .from("post_likes")
+      .select("post_id")
+      .eq("user_id", userId)
+      .in("post_id", postIds);
+    return new Set((data ?? []).map((r: any) => r.post_id as string));
+  }, [userId]);
+
+  return { like, unlike, fetchLikedPostIds };
+}
+
 export function useFotwReveal(clubId: string | undefined) {
   const [revealed, setRevealed] = useState<{
     week_start: string;

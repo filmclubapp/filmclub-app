@@ -82,7 +82,7 @@ import { supabase } from "@/app/lib/supabase";
 import { ensureMvpClubs } from "@/app/lib/hooks";
 
 /* ---- constants ---- */
-type Step = 0 | 1 | 2 | 3 | 4 | 5;
+type Step = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 const DARK = "#1E1D2B";
 const SURFACE = "#2A293A";
@@ -108,6 +108,18 @@ function initials(name: string): string {
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
 }
+
+/* ---- Mood options for Tonight For You personalisation ---- */
+const MOODS = [
+  { id: "Comfort",      emoji: "🪦", label: "COMFORT" },
+  { id: "Smart",        emoji: "🧠", label: "SMART" },
+  { id: "Funny",        emoji: "😂", label: "FUNNY" },
+  { id: "Thrilling",    emoji: "⚡", label: "THRILLING" },
+  { id: "Romantic",     emoji: "❤️", label: "ROMANTIC" },
+  { id: "Emotional",    emoji: "😢", label: "EMOTIONAL" },
+  { id: "Easy Watch",   emoji: "🛋️", label: "EASY WATCH" },
+  { id: "Mind-Blowing", emoji: "🤯", label: "MIND-BLOWING" },
+] as const;
 
 /* ---- Identity-framed behaviour options ---- */
 const BEHAVIOURS = [
@@ -198,13 +210,16 @@ export default function OnboardingPage() {
   /* Behaviour */
   const [behaviour, setBehaviour] = useState<string>("");
 
+  /* Moods (step 3 — powers Tonight For You) */
+  const [selectedMoods, setSelectedMoods] = useState<Set<string>>(new Set());
+
   /* Clubs */
   const [selectedClubs, setSelectedClubs] = useState<Set<string>>(new Set());
 
   /* Film rating (step 1) — uses curated SEED_FILMS, no API needed */
   const [swipeIndex, setSwipeIndex] = useState(0);
   const [ratedFilms, setRatedFilms] = useState<{ film: TMDBFilm; rating: number }[]>([]);
-  const [currentRating, setCurrentRating] = useState<number | "not_seen">(0);
+  const [currentRating, setCurrentRating] = useState<number>(5);
   const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(null);
 
   const currentSwipeFilm = SEED_FILMS[swipeIndex] ?? null;
@@ -214,11 +229,11 @@ export default function OnboardingPage() {
     if (!currentSwipeFilm) return;
     setSwipeDirection(direction);
     setTimeout(() => {
-      if (direction === "right" && currentRating !== 0 && currentRating !== "not_seen") {
-        setRatedFilms((prev) => [...prev, { film: currentSwipeFilm, rating: currentRating as number }]);
+      if (direction === "right") {
+        setRatedFilms((prev) => [...prev, { film: currentSwipeFilm, rating: currentRating }]);
       }
       setSwipeIndex((i) => i + 1);
-      setCurrentRating(0);
+      setCurrentRating(5);
       setSwipeDirection(null);
     }, 300);
   }, [currentSwipeFilm, currentRating]);
@@ -266,6 +281,7 @@ export default function OnboardingPage() {
         display_name: displayName.trim(),
         favourite_film_tmdb_id: favFilm,
         top_three_tmdb_ids: topThreeIds,
+        moods: [...selectedMoods],
       };
 
       if (profileExists) {
@@ -321,7 +337,7 @@ export default function OnboardingPage() {
       setSaveError("Almost there — refreshing.");
       setSigningUp(false);
     }
-  }, [displayName, email, password, signUp, user, refreshProfile, router, ratedFilms, selectedClubs]);
+  }, [displayName, email, password, signUp, user, refreshProfile, router, ratedFilms, selectedClubs, selectedMoods]);
 
   const toggleClub = (name: string) => {
     setSelectedClubs((prev) => {
@@ -374,7 +390,7 @@ export default function OnboardingPage() {
         {/* ============ STEP 1 — Film Swipe (the hook) ============ */}
         <ScreenFrame active={step === 1} className="flex flex-col px-5 pb-8 pt-[max(1.25rem,env(safe-area-inset-top))]">
           <div className="mb-6">
-            <ProgressDots current={0} total={5} />
+            <ProgressDots current={0} total={6} />
           </div>
 
           <header className="pb-3">
@@ -422,40 +438,32 @@ export default function OnboardingPage() {
                 {/* Not seen yet toggle */}
                 <button
                   type="button"
-                  onClick={() => setCurrentRating(currentRating === "not_seen" ? 0 : "not_seen")}
-                  className={`mb-3 w-full rounded-xl border py-2 font-mono text-[9px] uppercase tracking-[0.14em] transition ${
-                    currentRating === "not_seen"
-                      ? "border-white/30 bg-white/10 text-white/80"
-                      : "border-white/[0.08] text-white/30 hover:border-white/20 hover:text-white/50"
-                  }`}
+                  onClick={() => handleSwipe("left")}
+                  className="mb-3 w-full rounded-xl border border-white/[0.08] py-2 font-mono text-[9px] uppercase tracking-[0.14em] text-white/30 transition hover:border-white/20 hover:text-white/50 active:scale-[0.98]"
                 >
-                  {currentRating === "not_seen" ? "✓ NOT SEEN YET" : "NOT SEEN YET"}
+                  NOT SEEN YET →
                 </button>
 
-                {currentRating !== "not_seen" && (
-                  <>
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[9px] tracking-[0.12em] text-white/40">RATING</span>
-                      <span className="font-anton text-[24px] text-fc-red">
-                        {(currentRating as number) > 0 ? (currentRating as number).toFixed(1) : "—"}
-                      </span>
-                    </div>
-                    <input
-                      type="range"
-                      min="1"
-                      max="10"
-                      step="0.1"
-                      value={(currentRating as number) > 0 ? currentRating : 5}
-                      onChange={(e) => setCurrentRating(parseFloat(e.target.value))}
-                      className="mt-2 w-full accent-[#FF4A4A]"
-                    />
-                    <div className="mt-1 flex justify-between font-mono text-[7px] text-white/25">
-                      <span>1</span>
-                      <span>5.5</span>
-                      <span>10</span>
-                    </div>
-                  </>
-                )}
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[9px] tracking-[0.12em] text-white/40">RATING</span>
+                  <span className="font-anton text-[24px] text-fc-red">
+                    {currentRating.toFixed(1)}
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="0.1"
+                  max="10"
+                  step="0.1"
+                  value={currentRating}
+                  onChange={(e) => setCurrentRating(parseFloat(e.target.value))}
+                  className="mt-2 w-full accent-[#FF4A4A]"
+                />
+                <div className="mt-1 flex justify-between font-mono text-[7px] text-white/25">
+                  <span>0.1</span>
+                  <span>5</span>
+                  <span>10</span>
+                </div>
               </div>
 
               <div className="mt-6 flex items-center gap-6">
@@ -471,9 +479,8 @@ export default function OnboardingPage() {
                 </button>
                 <button
                   type="button"
-                  disabled={currentRating === 0}
                   onClick={() => handleSwipe("right")}
-                  className="flex h-16 w-16 items-center justify-center rounded-full bg-fc-red text-white shadow-[0_4px_20px_rgba(255,74,74,0.4)] transition enabled:hover:scale-105 enabled:active:scale-95 disabled:opacity-30"
+                  className="flex h-16 w-16 items-center justify-center rounded-full bg-fc-red text-white shadow-[0_4px_20px_rgba(255,74,74,0.4)] transition hover:scale-105 active:scale-95"
                   aria-label="Rate this film"
                 >
                   <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
@@ -517,7 +524,7 @@ export default function OnboardingPage() {
         {/* ============ STEP 2 — Card Reveal ============ */}
         <ScreenFrame active={step === 2} className="flex flex-col items-center justify-center px-5 pb-8 pt-[max(1.5rem,env(safe-area-inset-top))]">
           <div className="mb-6">
-            <ProgressDots current={1} total={5} />
+            <ProgressDots current={1} total={6} />
           </div>
 
           <p className="font-mono text-[9px] uppercase tracking-[0.22em] text-fc-red/80">YOUR TASTE</p>
@@ -570,10 +577,72 @@ export default function OnboardingPage() {
           </button>
         </ScreenFrame>
 
-        {/* ============ STEP 3 — Behaviour (identity framing) ============ */}
+        {/* ============ STEP 3 — Mood Selection (powers Tonight For You) ============ */}
         <ScreenFrame active={step === 3} className="flex flex-col px-5 pb-8 pt-[max(1.25rem,env(safe-area-inset-top))]">
           <div className="mb-6">
-            <ProgressDots current={2} total={5} />
+            <ProgressDots current={2} total={6} />
+          </div>
+
+          <header className="pb-6">
+            <h2 className="font-anton text-[30px] leading-[0.95] tracking-wide text-white">
+              WHAT ARE YOU<br />
+              <span className="text-fc-red">IN THE MOOD FOR?</span>
+            </h2>
+            <p className="mt-2 font-sans text-sm font-light italic text-white/50">
+              pick all that apply — we&apos;ll find tonight&apos;s film for you.
+            </p>
+          </header>
+
+          <div className="grid grid-cols-2 gap-3 flex-1">
+            {MOODS.map((mood) => {
+              const active = selectedMoods.has(mood.id);
+              return (
+                <button
+                  key={mood.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedMoods((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(mood.id)) next.delete(mood.id);
+                      else next.add(mood.id);
+                      return next;
+                    });
+                  }}
+                  className={`flex flex-col items-center justify-center gap-2 rounded-2xl border px-4 py-5 transition duration-200 ${
+                    active
+                      ? "border-fc-red bg-fc-red/10 ring-1 ring-fc-red/40"
+                      : "border-white/10 bg-white/[0.03] hover:border-white/20"
+                  }`}
+                >
+                  <span className="text-3xl leading-none">{mood.emoji}</span>
+                  <p className={`font-anton text-[13px] tracking-wide leading-none ${active ? "text-fc-red" : "text-white/80"}`}>
+                    {mood.label}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+
+          <p className="mt-4 text-center font-mono text-[9px] text-white/30">
+            {selectedMoods.size} selected
+          </p>
+
+          <div className="mt-auto pt-4 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
+            <button
+              type="button"
+              disabled={selectedMoods.size === 0}
+              onClick={() => setStep(4)}
+              className="w-full rounded-full bg-fc-red py-3.5 font-anton text-sm tracking-[0.1em] text-white transition disabled:cursor-not-allowed disabled:opacity-30 enabled:hover:scale-[1.02]"
+            >
+              CONTINUE
+            </button>
+          </div>
+        </ScreenFrame>
+
+        {/* ============ STEP 4 — Behaviour (identity framing) ============ */}
+        <ScreenFrame active={step === 4} className="flex flex-col px-5 pb-8 pt-[max(1.25rem,env(safe-area-inset-top))]">
+          <div className="mb-6">
+            <ProgressDots current={3} total={6} />
           </div>
 
           <header className="pb-6">
@@ -625,7 +694,7 @@ export default function OnboardingPage() {
             <button
               type="button"
               disabled={!behaviour}
-              onClick={() => setStep(4)}
+              onClick={() => setStep(5)}
               className="w-full rounded-full bg-fc-red py-3.5 font-anton text-sm tracking-[0.1em] text-white transition disabled:cursor-not-allowed disabled:opacity-30 enabled:hover:scale-[1.02]"
             >
               CONTINUE
@@ -633,10 +702,10 @@ export default function OnboardingPage() {
           </div>
         </ScreenFrame>
 
-        {/* ============ STEP 4 — Pick Clubs (with aliveness signals) ============ */}
-        <ScreenFrame active={step === 4} className="flex flex-col px-5 pb-8 pt-[max(1.25rem,env(safe-area-inset-top))]">
+        {/* ============ STEP 5 — Pick Clubs (with aliveness signals) ============ */}
+        <ScreenFrame active={step === 5} className="flex flex-col px-5 pb-8 pt-[max(1.25rem,env(safe-area-inset-top))]">
           <div className="mb-6">
-            <ProgressDots current={3} total={5} />
+            <ProgressDots current={4} total={6} />
           </div>
 
           <header className="pb-6">
@@ -700,7 +769,7 @@ export default function OnboardingPage() {
             <button
               type="button"
               disabled={selectedClubs.size === 0}
-              onClick={() => setStep(5)}
+              onClick={() => setStep(6)}
               className="w-full rounded-full bg-fc-red py-3.5 font-anton text-sm tracking-[0.1em] text-white transition disabled:cursor-not-allowed disabled:opacity-30 enabled:hover:scale-[1.02]"
             >
               CONTINUE
@@ -708,10 +777,10 @@ export default function OnboardingPage() {
           </div>
         </ScreenFrame>
 
-        {/* ============ STEP 5 — Create Account + JOIN THE CLUB ============ */}
-        <ScreenFrame active={step === 5} className="flex flex-col px-5 pb-8 pt-[max(1.25rem,env(safe-area-inset-top))]">
+        {/* ============ STEP 6 — Create Account + JOIN THE CLUB ============ */}
+        <ScreenFrame active={step === 6} className="flex flex-col px-5 pb-8 pt-[max(1.25rem,env(safe-area-inset-top))]">
           <div className="mb-6">
-            <ProgressDots current={4} total={5} />
+            <ProgressDots current={5} total={6} />
           </div>
 
           <header className="pb-4">

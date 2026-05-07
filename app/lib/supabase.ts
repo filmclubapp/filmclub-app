@@ -16,6 +16,7 @@ export interface Profile {
   favourite_film_tmdb_id: number | null;
   top_three_tmdb_ids: number[];
   taste_tribe?: string | null;
+  moods?: string[];
   created_at: string;
 }
 
