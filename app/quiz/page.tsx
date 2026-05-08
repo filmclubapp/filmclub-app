@@ -491,7 +491,7 @@ function IDCard({
             IDENTITY PASSPORT · WAVE 01
           </div>
         </div>
-        <div style={{ display: "inline-flex", alignItems: "center", background: acFaint, border: `1px solid ${acLine}`, borderRadius: "2px", padding: "4px 9px", fontSize: "6px", letterSpacing: "2px", color: ac, fontFamily: "'DM Mono', monospace", fontWeight: 700, marginTop: "4px", lineHeight: "1" }}>
+        <div style={{ fontSize: "6px", letterSpacing: "2.5px", color: ac, fontFamily: "'DM Mono', monospace", fontWeight: 700, marginTop: "6px", opacity: 0.7 }}>
           FOUNDING MEMBER
         </div>
       </div>
@@ -510,7 +510,7 @@ function IDCard({
       <div style={{ marginBottom: "14px", paddingBottom: "14px", borderBottom: "1px solid rgba(255,255,255,0.06)", position: "relative", zIndex: 1 }}>
         <div style={{ fontSize: "6px", letterSpacing: "3px", color: "rgba(255,255,255,0.28)", marginBottom: "8px" }}>CINEMATIC IDENTITY</div>
         {/* Badge */}
-        <div style={{ display: "inline-flex", alignItems: "center", background: acFaint, border: `1px solid ${acLine}`, borderRadius: "2px", padding: "4px 9px", fontSize: "6px", letterSpacing: "1.5px", color: ac, fontWeight: 700, marginBottom: "8px", lineHeight: "1" }}>
+        <div style={{ fontSize: "6px", letterSpacing: "2px", color: ac, fontWeight: 700, marginBottom: "6px", opacity: 0.75 }}>
           ◆ {archetype.id.replace(/-/g, " ").toUpperCase()}
         </div>
         <div style={{ fontFamily: "'Anton', sans-serif", fontSize: archetype.name.length > 16 ? "26px" : "32px", fontWeight: 700, letterSpacing: "1px", color: "#f0ede8", lineHeight: 1.0, marginBottom: "5px", textShadow: `0 0 40px ${acDim}` }}>
@@ -522,16 +522,13 @@ function IDCard({
         <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontStyle: "italic", fontWeight: 300, lineHeight: 1.6, color: "rgba(232,228,212,0.55)", marginBottom: "10px" }}>
           {archetype.desc}
         </div>
-        <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "5px" }}>
-          {archetype.tags.map((tag) => (
+        <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "8px" }}>
+          {archetype.tags.map((tag, i) => (
             <span key={tag} style={{
-              fontSize: "5.5px", letterSpacing: "1.5px", color: ac,
-              border: `1px solid ${acLine}`, borderRadius: "2px",
-              padding: "4px 8px", textTransform: "uppercase" as const,
-              background: acFaint, whiteSpace: "nowrap" as const,
-              lineHeight: "1",
+              fontSize: "5.5px", letterSpacing: "1.5px", color: "rgba(232,228,212,0.45)",
+              textTransform: "uppercase" as const,
             }}>
-              {tag}
+              {tag}{i < archetype.tags.length - 1 ? " ·" : ""}
             </span>
           ))}
         </div>
@@ -658,41 +655,35 @@ function StoryCard({
 
         {/* Identity block */}
         <div style={{ flexShrink: 0 }}>
-          <div style={{ display: "inline-flex", alignItems: "center", background: acFaint, border: `1px solid ${acLine}`, borderRadius: "2px", padding: "4px 9px", fontSize: "7px", letterSpacing: "1.5px", color: ac, fontWeight: 700, marginBottom: "10px", lineHeight: "1" }}>
+          <div style={{ fontSize: "7px", letterSpacing: "2px", color: ac, fontWeight: 700, marginBottom: "8px", opacity: 0.75 }}>
             ◆ {archetype.id.replace(/-/g, " ").toUpperCase()}
           </div>
           <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "52px", letterSpacing: "0.5px", color: "#f0ede8", lineHeight: 0.92, marginBottom: "10px", textShadow: `0 0 40px rgba(255,74,74,0.35)` }}>
             {archetype.name}
           </div>
-          <div style={{ fontSize: "12px", letterSpacing: "0.6px", fontStyle: "italic", color: ac, opacity: 0.85, marginBottom: "12px" }}>
-            {archetype.tagline}
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "6px", marginBottom: "18px" }}>
-            {archetype.tags.map((tag) => (
-              <span key={tag} style={{
-                fontSize: "7px", letterSpacing: "1.5px", color: ac,
-                border: `1px solid ${acLine}`, borderRadius: "2px",
-                padding: "4px 9px", textTransform: "uppercase" as const,
-                background: acFaint, whiteSpace: "nowrap" as const, lineHeight: "1",
-              }}>
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Member row */}
-        <div style={{ flexShrink: 0 }}>
-          <div style={{ height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "12px" }} />
-          <div style={{ display: "flex", alignItems: "baseline", gap: "12px", marginBottom: "12px" }}>
-            <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "22px", color: ac, lineHeight: 1, textShadow: `0 0 20px rgba(255,74,74,0.5)` }}>
+          {/* Member number sits directly under the name */}
+          <div style={{ display: "flex", alignItems: "baseline", gap: "10px", marginBottom: "10px" }}>
+            <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "20px", color: ac, lineHeight: 1, textShadow: `0 0 20px rgba(255,74,74,0.5)` }}>
               {memberNumber}
             </div>
-            <div style={{ fontSize: "11px", letterSpacing: "4px", color: "rgba(255,255,255,0.7)", fontWeight: 700 }}>
+            <div style={{ fontSize: "10px", letterSpacing: "4px", color: "rgba(255,255,255,0.6)", fontWeight: 700 }}>
               {(username || "YOUR NAME").toUpperCase()}
             </div>
           </div>
-          <div style={{ height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "16px" }} />
+          <div style={{ height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "10px" }} />
+          <div style={{ fontSize: "12px", letterSpacing: "0.6px", fontStyle: "italic", color: ac, opacity: 0.85, marginBottom: "10px" }}>
+            {archetype.tagline}
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "8px", marginBottom: "14px" }}>
+            {archetype.tags.map((tag, i) => (
+              <span key={tag} style={{
+                fontSize: "7px", letterSpacing: "1.5px", color: "rgba(232,228,212,0.45)",
+                textTransform: "uppercase" as const,
+              }}>
+                {tag}{i < archetype.tags.length - 1 ? " ·" : ""}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Top 3 Films */}
