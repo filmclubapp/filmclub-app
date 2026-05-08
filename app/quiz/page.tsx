@@ -62,7 +62,7 @@ const ARCHETYPES: Archetype[] = [
     id:      "neon-noirist",
     name:    "NEON NOIRIST",
     tagline: "chases beauty in the dark",
-    desc:    "You see what others miss. The way light falls through a window at 2am. The pause before someone says something they can't take back. You were drawn to cinema because it's the only place that holds darkness the way you do — not as something to fix, but as something to inhabit. You don't need the film to end well. You need it to end honestly.",
+    desc:    "You see what others miss. The way light falls through a window at 2am. The pause before someone says something they can't take back. You were drawn to cinema because it's the only place that holds darkness the way you do - not as something to fix, but as something to inhabit. You don't need the film to end well. You need it to end honestly.",
     tags:    ["ATMOSPHERE", "MORAL COMPLEXITY", "VISUAL TENSION"],
     cardBg:  "#0e1020",
     radarAc: "#6470d4",
@@ -73,7 +73,7 @@ const ARCHETYPES: Archetype[] = [
     id:      "emotional-architect",
     name:    "EMOTIONAL ARCHITECT",
     tagline: "builds feeling with ruthless precision",
-    desc:    "You experience emotion like architecture — you feel it and simultaneously understand its structure. A film breaks you and you know exactly which scene, which note, which cut did it. People watch for the story. You watch for the precise moment a human being becomes completely real on screen. You carry films in your body long after the credits roll.",
+    desc:    "You experience emotion like architecture - you feel it and simultaneously understand its structure. A film breaks you and you know exactly which scene, which note, which cut did it. People watch for the story. You watch for the precise moment a human being becomes completely real on screen. You carry films in your body long after the credits roll.",
     tags:    ["CHARACTER DEPTH", "EMOTIONAL TRUTH", "HUMAN DRAMA"],
     cardBg:  "#140820",
     radarAc: "#c084fc",
@@ -84,7 +84,7 @@ const ARCHETYPES: Archetype[] = [
     id:      "slow-burn",
     name:    "THE SLOW BURN",
     tagline: "lets silence do the work",
-    desc:    "Silence doesn't make you anxious — it makes you pay attention. You have the rarest gift in cinema: patience. While others reach for their phones, you're noticing how long the camera holds on an empty room, what that means, what it costs the character to stay in it. You understand that in the right film, nothing happening is everything happening.",
+    desc:    "Silence doesn't make you anxious - it makes you pay attention. You have the rarest gift in cinema: patience. While others reach for their phones, you're noticing how long the camera holds on an empty room, what that means, what it costs the character to stay in it. You understand that in the right film, nothing happening is everything happening.",
     tags:    ["PATIENCE", "ATMOSPHERE", "QUIET INTENSITY"],
     cardBg:  "#081420",
     radarAc: "#7aa2c0",
@@ -95,7 +95,7 @@ const ARCHETYPES: Archetype[] = [
     id:      "cosmic-romantic",
     name:    "COSMIC ROMANTIC",
     tagline: "love on a scale that breaks you",
-    desc:    "You believe love is the most cinematic thing that exists — not the easy kind, but the kind that costs something. The kind that survives time, distance, death, regret. You watch films about love not to escape your life but to understand it. Every great love story you've ever seen has left a specific mark on you. You can still feel all of them.",
+    desc:    "You believe love is the most cinematic thing that exists - not the easy kind, but the kind that costs something. The kind that survives time, distance, death, regret. You watch films about love not to escape your life but to understand it. Every great love story you've ever seen has left a specific mark on you. You can still feel all of them.",
     tags:    ["LOVE", "SCALE", "BITTERSWEET TRUTH"],
     cardBg:  "#1a0814",
     radarAc: "#e078a0",
@@ -106,7 +106,7 @@ const ARCHETYPES: Archetype[] = [
     id:      "concrete-realist",
     name:    "CONCRETE REALIST",
     tagline: "no gloss. just truth",
-    desc:    "You have no patience for gloss. The most powerful thing a film can do is make you forget you're watching one — when it moves exactly like life moves, messy and unresolved and true. You trust films that trust their audience enough not to explain everything. Sentiment feels like a lie to you. Earned feeling is everything.",
+    desc:    "You have no patience for gloss. The most powerful thing a film can do is make you forget you're watching one - when it moves exactly like life moves, messy and unresolved and true. You trust films that trust their audience enough not to explain everything. Sentiment feels like a lie to you. Earned feeling is everything.",
     tags:    ["RAW TRUTH", "SOCIAL REALISM", "NO SENTIMENTALITY"],
     cardBg:  "#081408",
     radarAc: "#70a050",
@@ -117,7 +117,7 @@ const ARCHETYPES: Archetype[] = [
     id:      "genre-subverter",
     name:    "GENRE SUBVERTER",
     tagline: "watches genre to watch it break",
-    desc:    "You've always watched films one level above everyone else. You clock the genre signals, the expected beats — and what you love is the director who knows you're clocking them and decides to do something else entirely. You love cinema that is in conversation with itself. The setup only exists because you both know what it's for, and you're both about to break it.",
+    desc:    "You've always watched films one level above everyone else. You clock the genre signals, the expected beats - and what you love is the director who knows you're clocking them and decides to do something else entirely. You love cinema that is in conversation with itself. The setup only exists because you both know what it's for, and you're both about to break it.",
     tags:    ["SUBVERSION", "WIT", "BRAVE STORYTELLING"],
     cardBg:  "#081818",
     radarAc: "#38b2a0",
@@ -128,7 +128,7 @@ const ARCHETYPES: Archetype[] = [
     id:      "auteur-devotee",
     name:    "THE AUTEUR DEVOTEE",
     tagline: "follows the director, not the film",
-    desc:    "You see the director's hand in everything. The length of a shot. The placement of a body in a frame. The decision to cut here and not a second later. You've fallen into filmographies the way other people fall into relationships — completely, obsessively, with total commitment. You don't just watch films. You study them. And what you're studying is how a singular mind sees the world.",
+    desc:    "You see the director's hand in everything. The length of a shot. The placement of a body in a frame. The decision to cut here and not a second later. You've fallen into filmographies the way other people fall into relationships - completely, obsessively, with total commitment. You don't just watch films. You study them. And what you're studying is how a singular mind sees the world.",
     tags:    ["CRAFT", "DIRECTORIAL VISION", "VISUAL LANGUAGE"],
     cardBg:  "#080c18",
     radarAc: "#60a8d0",
@@ -139,7 +139,7 @@ const ARCHETYPES: Archetype[] = [
     id:      "deadpan",
     name:    "THE DEADPAN",
     tagline: "warm underneath the cool",
-    desc:    "Warmth disguised as cool — that's you. You gravitate toward films that hold you at arm's length and then, when you least expect it, wreck you completely. You appreciate the craft of keeping a perfectly straight face while something devastating is happening. People who love the same films as you become your people immediately. The sense of humour is specific. So is the sadness underneath it.",
+    desc:    "Warmth disguised as cool - that's you. You gravitate toward films that hold you at arm's length and then, when you least expect it, wreck you completely. You appreciate the craft of keeping a perfectly straight face while something devastating is happening. People who love the same films as you become your people immediately. The sense of humour is specific. So is the sadness underneath it.",
     tags:    ["DRY WIT", "PRECISION", "WARM IRONY"],
     cardBg:  "#0e100e",
     radarAc: "#a0b890",
@@ -163,7 +163,7 @@ const QUESTIONS: Question[] = [
   {
     id: 1,
     prompt: "It's 7pm. You're picking a film alone. What do you reach for?",
-    sub: "be honest — this is just between us",
+    sub: "be honest - this is just between us",
     answers: [
       { label: "Something dark and beautiful — atmosphere first",       scores: [2,0,0,0,0,0,0,0] }, // NOIRIST
       { label: "Something that's going to make me feel something real", scores: [0,2,0,0,0,0,0,0] }, // EMOTIONAL
@@ -478,12 +478,12 @@ function IDCard({
           <div style={{ fontSize: "6px", letterSpacing: "2.5px", color: ac, opacity: 0.7, marginBottom: "3px", fontFamily: "'DM Mono', monospace" }}>
             EST. 2026
           </div>
-          {/* Wordmark: cream "Film Club" + red "ID" badge inline */}
+          {/* Wordmark: cream "FILM CLUB" + red "ID" badge inline */}
           <div style={{ display: "flex", alignItems: "baseline", gap: "7px", lineHeight: 1 }}>
             <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "28px", letterSpacing: "0.06em", color: "#fdf9e3", lineHeight: 1 }}>
-              Film Club
+              FILM CLUB
             </div>
-            <div style={{ background: ac, borderRadius: "2px", padding: "2px 6px", fontSize: "6px", letterSpacing: "2px", color: "#0d0c16", fontFamily: "'DM Mono', monospace", fontWeight: 700, alignSelf: "center" }}>
+            <div style={{ background: ac, borderRadius: "2px", padding: "4px 7px", fontSize: "6px", letterSpacing: "2px", color: "#0d0c16", fontFamily: "'DM Mono', monospace", fontWeight: 700, alignSelf: "center", lineHeight: "1" }}>
               ID
             </div>
           </div>
@@ -491,7 +491,7 @@ function IDCard({
             IDENTITY PASSPORT · WAVE 01
           </div>
         </div>
-        <div style={{ background: acFaint, border: `1px solid ${acLine}`, borderRadius: "2px", padding: "4px 9px", fontSize: "6px", letterSpacing: "2px", color: ac, fontFamily: "'DM Mono', monospace", fontWeight: 700, marginTop: "4px" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", background: acFaint, border: `1px solid ${acLine}`, borderRadius: "2px", padding: "4px 9px", fontSize: "6px", letterSpacing: "2px", color: ac, fontFamily: "'DM Mono', monospace", fontWeight: 700, marginTop: "4px", lineHeight: "1" }}>
           FOUNDING MEMBER
         </div>
       </div>
@@ -510,7 +510,7 @@ function IDCard({
       <div style={{ marginBottom: "14px", paddingBottom: "14px", borderBottom: "1px solid rgba(255,255,255,0.06)", position: "relative", zIndex: 1 }}>
         <div style={{ fontSize: "6px", letterSpacing: "3px", color: "rgba(255,255,255,0.28)", marginBottom: "8px" }}>CINEMATIC IDENTITY</div>
         {/* Badge */}
-        <div style={{ display: "inline-block", background: acFaint, border: `1px solid ${acLine}`, borderRadius: "2px", padding: "3px 8px", fontSize: "6px", letterSpacing: "1.5px", color: ac, fontWeight: 700, marginBottom: "8px" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", background: acFaint, border: `1px solid ${acLine}`, borderRadius: "2px", padding: "4px 9px", fontSize: "6px", letterSpacing: "1.5px", color: ac, fontWeight: 700, marginBottom: "8px", lineHeight: "1" }}>
           ◆ {archetype.id.replace(/-/g, " ").toUpperCase()}
         </div>
         <div style={{ fontFamily: "'Anton', sans-serif", fontSize: archetype.name.length > 16 ? "26px" : "32px", fontWeight: 700, letterSpacing: "1px", color: "#f0ede8", lineHeight: 1.0, marginBottom: "5px", textShadow: `0 0 40px ${acDim}` }}>
@@ -522,15 +522,14 @@ function IDCard({
         <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "10px", fontStyle: "italic", fontWeight: 300, lineHeight: 1.6, color: "rgba(232,228,212,0.55)", marginBottom: "10px" }}>
           {archetype.desc}
         </div>
-        {/* inline-block instead of flex-wrap — renders correctly in html2canvas */}
-        <div style={{ lineHeight: "2.2" }}>
+        <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "5px" }}>
           {archetype.tags.map((tag) => (
             <span key={tag} style={{
-              display: "inline-block", marginRight: "5px",
               fontSize: "5.5px", letterSpacing: "1.5px", color: ac,
               border: `1px solid ${acLine}`, borderRadius: "2px",
-              padding: "3px 7px", textTransform: "uppercase" as const,
+              padding: "4px 8px", textTransform: "uppercase" as const,
               background: acFaint, whiteSpace: "nowrap" as const,
+              lineHeight: "1",
             }}>
               {tag}
             </span>
@@ -538,30 +537,8 @@ function IDCard({
         </div>
       </div>
 
-      {/* ── FILM DNA ── */}
-      <div style={{ marginBottom: "14px", position: "relative", zIndex: 1 }}>
-        <div style={{ fontSize: "6px", letterSpacing: "3px", color: "rgba(255,255,255,0.28)", marginBottom: "8px" }}>FILM DNA</div>
-        <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-          <RadarChart scores={archetype.dna} accent={archetype.radarAc} />
-          <div style={{ flex: 1 }}>
-            {DNA_AXES.map((axis, i) => (
-              <div key={axis} style={{ marginBottom: i < 4 ? "8px" : 0 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "3px" }}>
-                  <span style={{ fontSize: "6.5px", letterSpacing: "0.5px", color: "rgba(255,255,255,0.40)" }}>{axis}</span>
-                  <span style={{ fontSize: "7px", fontWeight: 700, color: ac }}>{archetype.dna[i].toFixed(1)}</span>
-                </div>
-                <div style={{ height: "1.5px", background: "rgba(255,255,255,0.06)", borderRadius: "1px", overflow: "hidden" }}>
-                  <div style={{ height: "100%", width: `${(archetype.dna[i] / 10) * 100}%`, background: ac, opacity: 0.65, borderRadius: "1px" }} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── TOP 3 FILMS ── */}
-      <div style={{ borderTop: "1px solid rgba(255,74,74,0.18)", paddingTop: "13px", marginBottom: "13px", position: "relative", zIndex: 1 }}>
-        {/* Prominent TOP 3 heading */}
+      {/* ── FILM CLUB TOP 3 ── */}
+      <div style={{ borderTop: "1px solid rgba(255,74,74,0.18)", paddingTop: "13px", marginBottom: "14px", position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
           <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "13px", letterSpacing: "3px", color: "#f0ede8", lineHeight: 1 }}>
             FILM CLUB TOP 3
@@ -588,10 +565,170 @@ function IDCard({
         </div>
       </div>
 
+      {/* ── FILM DNA ── */}
+      <div style={{ marginBottom: "14px", position: "relative", zIndex: 1 }}>
+        <div style={{ fontSize: "6px", letterSpacing: "3px", color: "rgba(255,255,255,0.28)", marginBottom: "8px" }}>FILM DNA</div>
+        <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+          <RadarChart scores={archetype.dna} accent={archetype.radarAc} />
+          <div style={{ flex: 1 }}>
+            {DNA_AXES.map((axis, i) => (
+              <div key={axis} style={{ marginBottom: i < 4 ? "8px" : 0 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "3px" }}>
+                  <span style={{ fontSize: "6.5px", letterSpacing: "0.5px", color: "rgba(255,255,255,0.40)" }}>{axis}</span>
+                  <span style={{ fontSize: "7px", fontWeight: 700, color: ac }}>{archetype.dna[i].toFixed(1)}</span>
+                </div>
+                <div style={{ height: "1.5px", background: "rgba(255,255,255,0.06)", borderRadius: "1px", overflow: "hidden" }}>
+                  <div style={{ height: "100%", width: `${(archetype.dna[i] / 10) * 100}%`, background: ac, opacity: 0.65, borderRadius: "1px" }} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* ── FOOTER ── */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: "9px", position: "relative", zIndex: 1 }}>
         <div style={{ fontSize: "6px", letterSpacing: "1.8px", color: "rgba(255,255,255,0.22)" }}>ISSUED {issued}</div>
         <div style={{ fontSize: "6.5px", letterSpacing: "2px", color: ac, opacity: 0.45, fontWeight: 700 }}>JOINFILM.CLUB</div>
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STORY CARD — 9:16 for IG / TikTok Stories
+   390 × 693 px  →  rendered at 3× = 1170 × 2079 (≈ 9:16)
+   ══════════════════════════════════════════════════════════════ */
+function StoryCard({
+  archetype, memberNumber, username, topFilms, cardRef,
+}: {
+  archetype:    Archetype;
+  memberNumber: string;
+  username:     string;
+  topFilms:     FilmPick[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  cardRef: React.RefObject<any>;
+}) {
+  const ac      = RED;
+  const acLine  = "rgba(255,74,74,0.28)";
+  const acFaint = "rgba(255,74,74,0.10)";
+  const hasFilms   = topFilms.filter((f) => f.title).length === 3;
+  const displayFilms = hasFilms
+    ? topFilms
+    : archetype.films.map((t) => ({ title: t, year: "", posterPath: null, tmdbId: null }));
+
+  return (
+    <div ref={cardRef} style={{
+      width: "390px", height: "693px",
+      background: archetype.cardBg,
+      fontFamily: "'Courier New', Courier, monospace",
+      position: "relative", overflow: "hidden",
+      display: "flex", flexDirection: "column",
+      padding: "28px 26px 24px",
+      boxSizing: "border-box",
+    }}>
+      {/* Grain */}
+      <div style={{ position: "absolute", inset: 0, opacity: 0.05, pointerEvents: "none",
+        backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
+        backgroundSize: "180px 180px",
+      }} />
+      {/* Top red shimmer */}
+      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1.5px", background: `linear-gradient(90deg, transparent 0%, ${ac} 50%, transparent 100%)`, opacity: 0.8 }} />
+      {/* Bottom shimmer */}
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "1px", background: `linear-gradient(90deg, transparent, ${acLine}, transparent)` }} />
+
+      {/* ── HEADER ── */}
+      <div style={{ position: "relative", zIndex: 1, marginBottom: "16px", flexShrink: 0 }}>
+        <div style={{ fontSize: "7px", letterSpacing: "2.5px", color: ac, opacity: 0.65, marginBottom: "5px", fontFamily: "'DM Mono', monospace" }}>EST. 2026</div>
+        <div style={{ display: "flex", alignItems: "center", gap: "9px" }}>
+          <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "30px", letterSpacing: "0.06em", color: "#fdf9e3", lineHeight: 1 }}>
+            FILM CLUB
+          </div>
+          <div style={{ background: ac, borderRadius: "2px", padding: "4px 7px", fontSize: "7px", letterSpacing: "2px", color: "#0d0c16", fontFamily: "'DM Mono', monospace", fontWeight: 700, lineHeight: "1" }}>
+            ID
+          </div>
+        </div>
+      </div>
+
+      {/* divider */}
+      <div style={{ height: "1px", background: "rgba(255,74,74,0.18)", marginBottom: "20px", position: "relative", zIndex: 1, flexShrink: 0 }} />
+
+      {/* ── ARCHETYPE ── */}
+      <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: 0 }}>
+
+        {/* Identity block */}
+        <div style={{ flexShrink: 0 }}>
+          <div style={{ display: "inline-flex", alignItems: "center", background: acFaint, border: `1px solid ${acLine}`, borderRadius: "2px", padding: "4px 9px", fontSize: "7px", letterSpacing: "1.5px", color: ac, fontWeight: 700, marginBottom: "10px", lineHeight: "1" }}>
+            ◆ {archetype.id.replace(/-/g, " ").toUpperCase()}
+          </div>
+          <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "52px", letterSpacing: "0.5px", color: "#f0ede8", lineHeight: 0.92, marginBottom: "10px", textShadow: `0 0 40px rgba(255,74,74,0.35)` }}>
+            {archetype.name}
+          </div>
+          <div style={{ fontSize: "12px", letterSpacing: "0.6px", fontStyle: "italic", color: ac, opacity: 0.85, marginBottom: "12px" }}>
+            {archetype.tagline}
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "6px", marginBottom: "18px" }}>
+            {archetype.tags.map((tag) => (
+              <span key={tag} style={{
+                fontSize: "7px", letterSpacing: "1.5px", color: ac,
+                border: `1px solid ${acLine}`, borderRadius: "2px",
+                padding: "4px 9px", textTransform: "uppercase" as const,
+                background: acFaint, whiteSpace: "nowrap" as const, lineHeight: "1",
+              }}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Member row */}
+        <div style={{ flexShrink: 0 }}>
+          <div style={{ height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "12px" }} />
+          <div style={{ display: "flex", alignItems: "baseline", gap: "12px", marginBottom: "12px" }}>
+            <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "22px", color: ac, lineHeight: 1, textShadow: `0 0 20px rgba(255,74,74,0.5)` }}>
+              {memberNumber}
+            </div>
+            <div style={{ fontSize: "11px", letterSpacing: "4px", color: "rgba(255,255,255,0.7)", fontWeight: 700 }}>
+              {(username || "YOUR NAME").toUpperCase()}
+            </div>
+          </div>
+          <div style={{ height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "16px" }} />
+        </div>
+
+        {/* Top 3 Films */}
+        <div style={{ flexShrink: 0 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+            <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "11px", letterSpacing: "3px", color: "#f0ede8", lineHeight: 1 }}>
+              FILM CLUB TOP 3
+            </div>
+            <div style={{ flex: 1, height: "1px", background: `linear-gradient(90deg, ${acLine}, transparent)` }} />
+          </div>
+          <div style={{ display: "flex", gap: "8px" }}>
+            {displayFilms.map((film, i) => (
+              <div key={i} style={{ flex: 1 }}>
+                <div style={{ width: "100%", aspectRatio: "2/3", borderRadius: "4px", overflow: "hidden", marginBottom: "6px", background: "rgba(255,255,255,0.04)", border: film.posterPath ? "none" : "1px dashed rgba(255,255,255,0.14)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {film.posterPath
+                    ? <img src={posterSrc(film.posterPath)} alt={film.title} data-story-poster="1" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    : <span style={{ color: "rgba(255,255,255,0.12)", fontSize: "20px" }}>＋</span>
+                  }
+                </div>
+                <div style={{ fontSize: "7px", letterSpacing: "0.6px", color: "rgba(255,255,255,0.55)", textAlign: "center" as const, textTransform: "uppercase" as const, lineHeight: 1.3 }}>
+                  {film.title}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div style={{ flexShrink: 0 }}>
+          <div style={{ height: "1px", background: "rgba(255,255,255,0.05)", marginTop: "14px", marginBottom: "10px" }} />
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ fontSize: "7px", letterSpacing: "2px", color: "rgba(255,255,255,0.2)", fontFamily: "'DM Mono', monospace" }}>FILM CLUB ID</div>
+            <div style={{ fontSize: "8px", letterSpacing: "2px", color: ac, opacity: 0.5, fontWeight: 700, fontFamily: "'DM Mono', monospace" }}>JOINFILM.CLUB</div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
@@ -628,7 +765,9 @@ export default function QuizPage() {
   const [email, setEmail]         = useState("");
   const [password, setPassword]   = useState("");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const cardRef = useRef<any>(null);
+  const cardRef  = useRef<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const storyRef = useRef<any>(null);
 
   const currentQ = step >= 1 && step <= 5 ? QUESTIONS[step - 1] : null;
 
@@ -728,13 +867,15 @@ export default function QuizPage() {
     } catch (e) { console.error(e); }
   }
 
-  /* Share card — native share sheet on mobile (IG Stories, TikTok, Snap),
-     copy link + download on desktop */
+  /* Share card — renders the 9:16 StoryCard for IG/TikTok Stories.
+     Native share sheet on mobile, download on desktop. */
   async function shareCard() {
-    if (!cardRef.current) return;
+    const target = storyRef.current ?? cardRef.current;
+    if (!target) return;
     try {
+      // Pre-convert poster images to data-URLs for html2canvas
       const imgs = Array.from(
-        cardRef.current.querySelectorAll("img[data-poster]")
+        target.querySelectorAll("img[data-story-poster], img[data-poster]")
       ) as HTMLImageElement[];
       const origSrcs: string[] = [];
       for (const img of imgs) {
@@ -745,8 +886,8 @@ export default function QuizPage() {
       const h2c = await import("html2canvas");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const html2canvas = (h2c as any).default ?? h2c;
-      const canvas = await html2canvas(cardRef.current, {
-        scale: 4, useCORS: true, allowTaint: true, backgroundColor: null, logging: false,
+      const canvas = await html2canvas(target, {
+        scale: 3, useCORS: true, allowTaint: true, backgroundColor: null, logging: false,
       });
       imgs.forEach((img, i) => { img.src = origSrcs[i]; });
 
@@ -754,20 +895,17 @@ export default function QuizPage() {
         ? `${window.location.origin}/u/${username}`
         : window.location.origin;
 
-      // Convert canvas → Blob → File for Web Share API
       canvas.toBlob(async (blob: Blob | null) => {
         if (!blob) { downloadCard(); return; }
         const file = new File([blob], "filmclub-id.png", { type: "image/png" });
 
-        // Mobile: native share sheet (opens IG Stories, TikTok, Snapchat etc)
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           await navigator.share({
             files:  [file],
-            title:  `I'm ${archetype?.name ?? "a film person"} · Film Club`,
-            text:   `My Film Club identity: ${archetype?.name} · ${memberNum} · ${profileUrl}`,
+            title:  `I'm ${archetype?.name ?? "a film person"} · FILM CLUB`,
+            text:   `My FILM CLUB identity: ${archetype?.name} · ${memberNum} · ${profileUrl}`,
           });
         } else {
-          // Desktop: copy profile link to clipboard + download the image
           try { await navigator.clipboard.writeText(profileUrl); } catch { /* ignore */ }
           const link = document.createElement("a");
           link.download = `filmclub-id-${archetype?.id ?? "card"}.png`;
@@ -776,7 +914,6 @@ export default function QuizPage() {
         }
       }, "image/png");
     } catch (e) {
-      // User cancelled share or something failed — silent fallback to download
       if ((e as Error)?.name !== "AbortError") downloadCard();
     }
   }
@@ -810,7 +947,7 @@ export default function QuizPage() {
             <ProgressBar step={step} />
             <div className="mt-2 flex justify-between">
               <span style={{ fontSize: "7.5px", letterSpacing: "0.22em", color: "rgba(232,228,212,0.25)", textTransform: "uppercase" }}>Question {step} of 5</span>
-              <span style={{ fontSize: "7.5px", letterSpacing: "0.22em", color: "rgba(255,74,74,0.5)", textTransform: "uppercase" }}>Film Club</span>
+              <span style={{ fontSize: "7.5px", letterSpacing: "0.22em", color: "rgba(255,74,74,0.5)", textTransform: "uppercase" }}>FILM CLUB</span>
             </div>
           </div>
         )}
@@ -820,13 +957,13 @@ export default function QuizPage() {
           {/* ── 0: INTRO ─── */}
           {step === 0 && (
             <motion.div key="intro" variants={fadeV} initial="initial" animate="animate" exit="exit" transition={fadeT} className="flex flex-col items-start">
-              <div style={{ fontSize: "9px", letterSpacing: "0.3em", color: RED, textTransform: "uppercase", marginBottom: "24px" }}>Film Club</div>
+              <div style={{ fontSize: "9px", letterSpacing: "0.3em", color: RED, textTransform: "uppercase", marginBottom: "24px" }}>FILM CLUB</div>
               <h1 style={{ fontFamily: "'Anton', sans-serif", fontSize: "clamp(52px, 14vw, 68px)", lineHeight: 0.88, letterSpacing: "0.02em", color: "#E8E4D4", textTransform: "uppercase", marginBottom: "24px" }}>
                 DISCOVER<br />YOUR<br /><span style={{ color: RED }}>IDENTITY.</span>
               </h1>
               <div style={{ width: "36px", height: "1.5px", background: RED, opacity: 0.6, marginBottom: "22px" }} />
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "14px", fontStyle: "italic", fontWeight: 300, lineHeight: 1.7, color: "rgba(232,228,212,0.55)", marginBottom: "40px" }}>
-                Five questions. One cinematic identity. Your Film Club ID — a credential that says more about you than any watchlist ever could.
+                Five questions. One cinematic identity. Your FILM CLUB ID - a credential that says more about you than any watchlist ever could.
               </p>
               <button onClick={() => setStep(1)} style={{ ...btnRed, marginBottom: "16px", fontSize: "10px" }}>
                 Begin →
@@ -870,7 +1007,7 @@ export default function QuizPage() {
                 YOUR TOP 3<br /><span style={{ color: RED }}>FILMS.</span>
               </h2>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontStyle: "italic", fontWeight: 300, color: "rgba(232,228,212,0.45)", lineHeight: 1.65, marginBottom: "32px" }}>
-                These go on your ID. The films that made you who you are — not what you think you should say.
+                These go on your ID. The films that made you who you are - not what you think you should say.
               </p>
               <div className="flex flex-col gap-6">
                 {[0, 1, 2].map((i) => (
@@ -890,7 +1027,7 @@ export default function QuizPage() {
           {step === 7 && archetype && (
             <motion.div key="reveal" variants={fadeV} initial="initial" animate="animate" exit="exit" transition={fadeT} className="flex flex-col items-center">
               <div style={{ fontSize: "7.5px", letterSpacing: "0.28em", color: "rgba(232,228,212,0.3)", textTransform: "uppercase", marginBottom: "20px", width: "100%", textAlign: "center" }}>
-                Your Film Club Identity
+                Your FILM CLUB Identity
               </div>
               <motion.div
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -927,7 +1064,7 @@ export default function QuizPage() {
               </p>
 
               {([
-                { label: "Username", value: username, setter: setUsername, type: "text",     placeholder: "how you'll appear in Film Club" },
+                { label: "Username", value: username, setter: setUsername, type: "text",     placeholder: "how you'll appear in FILM CLUB" },
                 { label: "Email",    value: email,    setter: setEmail,    type: "email",    placeholder: "we'll send your wave 01 details" },
                 { label: "Password", value: password, setter: setPassword, type: "password", placeholder: "min 8 characters" },
               ] as const).map(({ label, value, setter, type, placeholder }) => (
@@ -975,13 +1112,26 @@ export default function QuizPage() {
                 </p>
               )}
               <p style={{ fontSize: "7.5px", letterSpacing: "0.16em", color: "rgba(232,228,212,0.18)", textTransform: "uppercase", textAlign: "center", width: "100%", marginTop: "6px" }}>
-                Tag @filmclub — we share the best ones
+                Tag @filmclub - we share the best ones
               </p>
             </motion.div>
           )}
 
         </AnimatePresence>
       </div>
+
+      {/* Off-screen 9:16 story card — used only by shareCard() */}
+      {archetype && (
+        <div style={{ position: "fixed", left: "-9999px", top: 0, pointerEvents: "none", zIndex: -1 }}>
+          <StoryCard
+            archetype={archetype}
+            memberNumber={memberNum}
+            username={username || ""}
+            topFilms={topFilms}
+            cardRef={storyRef}
+          />
+        </div>
+      )}
     </div>
   );
 }
