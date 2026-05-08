@@ -23,8 +23,8 @@ html {
 }
 
 body {
-  background-color: var(--cream);
-  color: var(--navy);
+  background-color: #0d0c16;
+  color: #E8E4D4;
   font-family: "DM Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

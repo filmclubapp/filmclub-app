@@ -38,7 +38,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#FF4A4A" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
       </head>
-      <body className="min-h-screen bg-cream text-navy antialiased">
+      <body className="min-h-screen antialiased" style={{ backgroundColor: "#0d0c16" }}>
         <AuthProvider>
           <PostHogProvider>{children}</PostHogProvider>
         </AuthProvider>
