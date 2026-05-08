@@ -755,7 +755,7 @@ export default function QuizPage() {
         : window.location.origin;
 
       // Convert canvas → Blob → File for Web Share API
-      canvas.toBlob(async (blob) => {
+      canvas.toBlob(async (blob: Blob | null) => {
         if (!blob) { downloadCard(); return; }
         const file = new File([blob], "filmclub-id.png", { type: "image/png" });
 
