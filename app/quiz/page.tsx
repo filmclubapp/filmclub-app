@@ -1,7 +1,7 @@
 "use client";
 
 /*
-  FILM CLUB — Identity Quiz + ID Card
+  FILM CLUB - Identity Quiz + ID Card
   ════════════════════════════════════════════════════════════════
   Flow:
     0  → Intro
@@ -156,7 +156,7 @@ interface Question { id: number; prompt: string; sub: string; answers: Answer[] 
   Scoring indices: [NOIRIST, EMOTIONAL, SLOW_BURN, COSMIC, REALIST, SUBVERTER, AUTEUR, DEADPAN]
 
   Design principle: each answer gives 2pts to ONE primary archetype, at most 1pt secondary.
-  No archetype should accumulate secondary scores across multiple questions — that was
+  No archetype should accumulate secondary scores across multiple questions - that was
   causing AUTEUR DEVOTEE to dominate even for non-auteur answers.
 */
 const QUESTIONS: Question[] = [
@@ -165,12 +165,12 @@ const QUESTIONS: Question[] = [
     prompt: "It's 7pm. You're picking a film alone. What do you reach for?",
     sub: "be honest - this is just between us",
     answers: [
-      { label: "Something dark and beautiful — atmosphere first",       scores: [2,0,0,0,0,0,0,0] }, // NOIRIST
+      { label: "Something dark and beautiful - atmosphere first",       scores: [2,0,0,0,0,0,0,0] }, // NOIRIST
       { label: "Something that's going to make me feel something real", scores: [0,2,0,0,0,0,0,0] }, // EMOTIONAL
       { label: "Something quiet that takes its time",                   scores: [0,0,2,0,0,0,0,0] }, // SLOW BURN
-      { label: "Something sweeping — love, time, scale",               scores: [0,0,0,2,0,0,0,0] }, // COSMIC
+      { label: "Something sweeping - love, time, scale",               scores: [0,0,0,2,0,0,0,0] }, // COSMIC
       { label: "Real life. No gloss. No convenient ending",            scores: [0,0,0,0,2,0,0,0] }, // REALIST
-      { label: "Something strange — I want to be surprised by it",     scores: [0,0,0,0,0,2,0,1] }, // SUBVERTER + hint DEADPAN
+      { label: "Something strange - I want to be surprised by it",     scores: [0,0,0,0,0,2,0,1] }, // SUBVERTER + hint DEADPAN
     ],
   },
   {
@@ -183,7 +183,7 @@ const QUESTIONS: Question[] = [
       { label: "Thinking about one shot for the next three days",       scores: [0,0,0,0,0,0,2,0] }, // AUTEUR
       { label: "Needing to call someone and tell them to watch it",     scores: [0,0,0,2,0,0,0,0] }, // COSMIC
       { label: "Wanting to rewatch immediately to catch what I missed", scores: [0,0,0,0,0,2,0,0] }, // SUBVERTER
-      { label: "Slightly disoriented — and I love it",                  scores: [1,0,0,0,0,0,0,2] }, // DEADPAN + hint NOIRIST
+      { label: "Slightly disoriented - and I love it",                  scores: [1,0,0,0,0,0,0,2] }, // DEADPAN + hint NOIRIST
     ],
   },
   {
@@ -194,7 +194,7 @@ const QUESTIONS: Question[] = [
       { label: "Neon city. Rain. A character who sees too much",                        scores: [2,0,0,0,0,0,0,0] }, // NOIRIST
       { label: "Two people in a kitchen having the hardest conversation of their lives", scores: [0,2,0,0,1,0,0,0] }, // EMOTIONAL + hint REALIST
       { label: "A landscape held for 90 seconds. No dialogue. Nothing explained",       scores: [0,0,1,0,0,0,2,0] }, // AUTEUR + hint SLOW BURN
-      { label: "Vast and sweeping — a love story across years",                         scores: [0,0,0,2,0,0,0,0] }, // COSMIC
+      { label: "Vast and sweeping - a love story across years",                         scores: [0,0,0,2,0,0,0,0] }, // COSMIC
       { label: "A hand-held camera following someone through an ordinary Tuesday",      scores: [0,0,0,0,2,0,0,0] }, // REALIST
       { label: "A genre film that immediately signals it's about to break genre",       scores: [0,0,0,0,0,2,0,1] }, // SUBVERTER + hint DEADPAN
     ],
@@ -205,11 +205,11 @@ const QUESTIONS: Question[] = [
     sub: "your instinct, not what you think you should say",
     answers: [
       { label: "The light. How every frame was chosen",                               scores: [0,0,0,0,0,0,2,0] }, // AUTEUR
-      { label: "The actor's face — what they're not saying",                          scores: [0,2,0,0,0,0,0,0] }, // EMOTIONAL
+      { label: "The actor's face - what they're not saying",                          scores: [0,2,0,0,0,0,0,0] }, // EMOTIONAL
       { label: "Whether it feels true. Whether this could be someone's actual life",  scores: [0,0,0,0,2,0,0,0] }, // REALIST
-      { label: "The genre signals — whether the film's about to break them",          scores: [0,0,0,0,0,2,0,0] }, // SUBVERTER
-      { label: "The world they've built — the neon, the dust, the texture",           scores: [2,0,1,0,0,0,0,0] }, // NOIRIST + hint SLOW BURN
-      { label: "The tone — cold and precise, or vast and aching",                     scores: [0,0,0,2,0,0,0,1] }, // COSMIC + hint DEADPAN
+      { label: "The genre signals - whether the film's about to break them",          scores: [0,0,0,0,0,2,0,0] }, // SUBVERTER
+      { label: "The world they've built - the neon, the dust, the texture",           scores: [2,0,1,0,0,0,0,0] }, // NOIRIST + hint SLOW BURN
+      { label: "The tone - cold and precise, or vast and aching",                     scores: [0,0,0,2,0,0,0,1] }, // COSMIC + hint DEADPAN
     ],
   },
   {
@@ -416,7 +416,7 @@ function FilmSearchInput({
 }
 
 /* ══════════════════════════════════════════════════════════════
-   ID CARD — Film Club red chrome, dark archetype bg, TMDB posters
+   ID CARD - Film Club red chrome, dark archetype bg, TMDB posters
    ══════════════════════════════════════════════════════════════ */
 function IDCard({
   archetype, memberNumber, username, topFilms, cardRef,
@@ -456,7 +456,7 @@ function IDCard({
         backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
         backgroundSize: "180px 180px",
       }} />
-      {/* Top shimmer — red */}
+      {/* Top shimmer - red */}
       <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: `linear-gradient(90deg, transparent 0%, ${ac} 50%, transparent 100%)`, opacity: 0.7 }} />
       {/* Bottom shimmer */}
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "1px", background: `linear-gradient(90deg, transparent, ${acLine}, transparent)` }} />
@@ -474,7 +474,7 @@ function IDCard({
       {/* ── HEADER ── */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "14px", position: "relative", zIndex: 1 }}>
         <div>
-          {/* "est. 2026" label above wordmark — mirrors wallpaper */}
+          {/* "est. 2026" label above wordmark - mirrors wallpaper */}
           <div style={{ fontSize: "6px", letterSpacing: "2.5px", color: ac, opacity: 0.7, marginBottom: "3px", fontFamily: "'DM Mono', monospace" }}>
             EST. 2026
           </div>
@@ -496,7 +496,7 @@ function IDCard({
         </div>
       </div>
 
-      {/* ── MEMBER ROW — sits directly under header ── */}
+      {/* ── MEMBER ROW - sits directly under header ── */}
       <div style={{ display: "flex", alignItems: "baseline", gap: "12px", paddingBottom: "14px", borderBottom: "1px solid rgba(255,255,255,0.06)", marginBottom: "14px", position: "relative", zIndex: 1 }}>
         <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "28px", fontWeight: 700, letterSpacing: "-0.5px", color: ac, lineHeight: 1, textShadow: `0 0 28px ${acDim}` }}>
           {memberNumber}
@@ -506,7 +506,7 @@ function IDCard({
         </div>
       </div>
 
-      {/* ── CINEMATIC IDENTITY — below member row ── */}
+      {/* ── CINEMATIC IDENTITY - below member row ── */}
       <div style={{ marginBottom: "14px", paddingBottom: "14px", borderBottom: "1px solid rgba(255,255,255,0.06)", position: "relative", zIndex: 1 }}>
         <div style={{ fontSize: "6px", letterSpacing: "3px", color: "rgba(255,255,255,0.28)", marginBottom: "8px" }}>CINEMATIC IDENTITY</div>
         {/* Badge */}
@@ -596,7 +596,7 @@ function IDCard({
 }
 
 /* ══════════════════════════════════════════════════════════════
-   STORY CARD — 9:16 for IG / TikTok Stories
+   STORY CARD - 9:16 for IG / TikTok Stories
    390 × 693 px  →  rendered at 3× = 1170 × 2079 (≈ 9:16)
    ══════════════════════════════════════════════════════════════ */
 function StoryCard({
@@ -824,7 +824,7 @@ export default function QuizPage() {
   async function toDataURL(src: string): Promise<string> {
     return new Promise((resolve) => {
       const img = new Image();
-      // No crossOrigin needed — proxy is same-origin
+      // No crossOrigin needed - proxy is same-origin
       img.onload = () => {
         const c = document.createElement("canvas");
         c.width = img.naturalWidth;
@@ -867,7 +867,7 @@ export default function QuizPage() {
     } catch (e) { console.error(e); }
   }
 
-  /* Share card — renders the 9:16 StoryCard for IG/TikTok Stories.
+  /* Share card - renders the 9:16 StoryCard for IG/TikTok Stories.
      Native share sheet on mobile, download on desktop. */
   async function shareCard() {
     const target = storyRef.current ?? cardRef.current;
@@ -1018,7 +1018,7 @@ export default function QuizPage() {
                 Reveal my identity →
               </button>
               <button onClick={() => setStep(7)} style={{ ...btnGrey, marginTop: "10px", fontSize: "8px" }}>
-                Skip — use defaults
+                Skip - use defaults
               </button>
             </motion.div>
           )}
@@ -1120,7 +1120,7 @@ export default function QuizPage() {
         </AnimatePresence>
       </div>
 
-      {/* Off-screen 9:16 story card — used only by shareCard() */}
+      {/* Off-screen 9:16 story card - used only by shareCard() */}
       {archetype && (
         <div style={{ position: "fixed", left: "-9999px", top: 0, pointerEvents: "none", zIndex: -1 }}>
           <StoryCard
