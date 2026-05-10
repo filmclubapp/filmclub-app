@@ -834,6 +834,33 @@ export default function QuizPage() {
     });
   }
 
+  /* html2canvas cannot render <svg> elements — it silently skips them.
+     This helper serialises every SVG inside a container to a data-URL and
+     replaces it with an <img> of identical dimensions.  Call the returned
+     function to swap the originals back once the capture is done. */
+  function svgsToImages(container: HTMLElement): () => void {
+    const replacements: Array<{ img: HTMLImageElement; svg: SVGSVGElement }> = [];
+    const svgs = Array.from(container.querySelectorAll("svg")) as SVGSVGElement[];
+    for (const svg of svgs) {
+      const w = svg.getAttribute("width")  ?? String(svg.getBoundingClientRect().width);
+      const h = svg.getAttribute("height") ?? String(svg.getBoundingClientRect().height);
+      const svgStr  = new XMLSerializer().serializeToString(svg);
+      const dataUrl = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgStr)));
+      const img = document.createElement("img");
+      img.src    = dataUrl;
+      img.width  = parseFloat(w);
+      img.height = parseFloat(h);
+      img.style.cssText = svg.style.cssText;
+      svg.parentNode!.replaceChild(img, svg);
+      replacements.push({ img, svg });
+    }
+    return () => {
+      for (const { img, svg } of replacements) {
+        img.parentNode?.replaceChild(svg, img);
+      }
+    };
+  }
+
   async function downloadCard() {
     if (!cardRef.current) return;
     try {
@@ -847,6 +874,7 @@ export default function QuizPage() {
         img.src = await toDataURL(img.src);
       }
 
+      const restoreSvgs = svgsToImages(cardRef.current);
       const h2c = await import("html2canvas");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const html2canvas = (h2c as any).default ?? h2c;
@@ -854,8 +882,9 @@ export default function QuizPage() {
         scale: 4, useCORS: true, allowTaint: true, backgroundColor: null, logging: false,
       });
 
-      // Restore original srcs
+      // Restore original srcs and SVGs
       imgs.forEach((img, i) => { img.src = origSrcs[i]; });
+      restoreSvgs();
 
       const link = document.createElement("a");
       link.download = `filmclub-id-${archetype?.id ?? "card"}.png`;
@@ -880,6 +909,7 @@ export default function QuizPage() {
         img.src = await toDataURL(img.src);
       }
 
+      const restoreSvgs = svgsToImages(target);
       const h2c = await import("html2canvas");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const html2canvas = (h2c as any).default ?? h2c;
@@ -887,6 +917,7 @@ export default function QuizPage() {
         scale: 3, useCORS: true, allowTaint: true, backgroundColor: null, logging: false,
       });
       imgs.forEach((img, i) => { img.src = origSrcs[i]; });
+      restoreSvgs();
 
       const profileUrl = username
         ? `${window.location.origin}/u/${username}`
