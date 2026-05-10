@@ -14,7 +14,7 @@
 
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useAuth } from "../lib/auth-context";
+// useAuth removed — quiz now uses waitlist instead of full account creation
 import { supabase } from "../lib/supabase";
 
 /* ── Design tokens ──────────────────────────────────────────── */
@@ -742,19 +742,17 @@ function ProgressBar({ step }: { step: number }) {
    PAGE
    ══════════════════════════════════════════════════════════════ */
 export default function QuizPage() {
-  const { signUp } = useAuth();
-  const [step, setStep]           = useState(0);
-  const [answers, setAnswers]     = useState<number[][]>([]);
-  const [selected, setSelected]   = useState<number | null>(null);
-  const [archetype, setArchetype] = useState<Archetype | null>(null);
-  const [memberNum, setMemberNum] = useState("");
-  const [topFilms, setTopFilms]   = useState<FilmPick[]>([emptyPick(), emptyPick(), emptyPick()]);
-  const [saving, setSaving]       = useState(false);
-  const [saveError, setSaveError] = useState("");
+  const [step, setStep]             = useState(0);
+  const [answers, setAnswers]       = useState<number[][]>([]);
+  const [selected, setSelected]     = useState<number | null>(null);
+  const [archetype, setArchetype]   = useState<Archetype | null>(null);
+  const [memberNum, setMemberNum]   = useState("");
+  const [topFilms, setTopFilms]     = useState<FilmPick[]>([emptyPick(), emptyPick(), emptyPick()]);
+  const [saving, setSaving]         = useState(false);
+  const [saveError, setSaveError]   = useState("");
   const [hasAccount, setHasAccount] = useState(false);
-  const [username, setUsername]   = useState("");
-  const [email, setEmail]         = useState("");
-  const [password, setPassword]   = useState("");
+  const [username, setUsername]     = useState("");
+  const [email, setEmail]           = useState("");
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const cardRef  = useRef<any>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -785,26 +783,34 @@ export default function QuizPage() {
     setTopFilms(next);
   }
 
-  async function handleSignUp() {
-    if (!email || !username || !password) { setSaveError("All fields are required."); return; }
+  async function handleWaitlist() {
+    if (!email || !username) { setSaveError("Email and username are required."); return; }
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
     if (!emailOk) { setSaveError("Please enter a valid email address."); return; }
-    if (password.length < 8) { setSaveError("Password must be at least 8 characters."); return; }
     setSaving(true);
     setSaveError("");
-    const { error } = await signUp(email.trim().toLowerCase(), password, username);
-    if (error) { setSaveError(error); setSaving(false); return; }
-    if (archetype) {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        await supabase.from("profiles").update({
+    try {
+      const res = await fetch("/api/waitlist", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({
+          email:        email.trim().toLowerCase(),
           username,
-          taste_tribe:   archetype.id,
+          archetype_id: archetype?.id,
           member_number: memberNum,
-          top_films:     topFilms,
-          bio:           `${archetype.name} · ${memberNum}`,
-        }).eq("id", user.id);
+          top_films:    topFilms,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setSaveError(data.error || "Something went wrong. Please try again."); setSaving(false); return; }
+      // If duplicate email, show their original member number
+      if (data.member_number && data.member_number !== memberNum) {
+        setMemberNum(data.member_number);
       }
+    } catch {
+      setSaveError("Can't reach Film Club right now. Check your connection and try again.");
+      setSaving(false);
+      return;
     }
     setSaving(false);
     setHasAccount(true);
@@ -1030,7 +1036,7 @@ export default function QuizPage() {
               </motion.div>
               <div className="flex flex-col gap-3 w-full">
                 {!hasAccount && (
-                  <button onClick={() => setStep(8)} style={btnRed}>Save permanently → Create account</button>
+                  <button onClick={() => setStep(8)} style={btnRed}>Join Wave 01 →</button>
                 )}
                 <button onClick={shareCard} style={hasAccount ? btnRed : btnGrey}>↑ Share your ID</button>
                 {hasAccount && (
@@ -1043,21 +1049,20 @@ export default function QuizPage() {
             </motion.div>
           )}
 
-          {/* ── 8: SIGN UP ─── */}
+          {/* ── 8: JOIN WAITLIST ─── */}
           {step === 8 && archetype && (
             <motion.div key="signup" variants={slideV} initial="initial" animate="animate" exit="exit" transition={slideT} className="flex flex-col">
               <div style={{ fontSize: "7.5px", letterSpacing: "0.28em", color: RED, textTransform: "uppercase", marginBottom: "16px" }}>{archetype.name}</div>
               <h2 style={{ fontFamily: "'Anton', sans-serif", fontSize: "clamp(32px, 9vw, 44px)", lineHeight: 0.92, color: "#E8E4D4", textTransform: "uppercase", marginBottom: "24px" }}>
-                LOCK IN<br />YOUR ID.
+                LOCK IN<br />YOUR SPOT.
               </h2>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontStyle: "italic", fontWeight: 300, color: "rgba(232,228,212,0.45)", lineHeight: 1.65, marginBottom: "32px" }}>
-                Your archetype and member number are saved. When the app launches, you sign straight in.
+                Your ID is reserved. When the app drops, you get early access — no queue-jumping.
               </p>
 
               {([
-                { label: "Username", value: username, setter: setUsername, type: "text",     placeholder: "how you'll appear in FILM CLUB" },
-                { label: "Email",    value: email,    setter: setEmail,    type: "email",    placeholder: "we'll send your wave 01 details" },
-                { label: "Password", value: password, setter: setPassword, type: "password", placeholder: "min 8 characters" },
+                { label: "Username", value: username, setter: setUsername, type: "text",  placeholder: "how you'll appear in FILM CLUB" },
+                { label: "Email",    value: email,    setter: setEmail,    type: "email", placeholder: "we'll send your Wave 01 invite here" },
               ] as const).map(({ label, value, setter, type, placeholder }) => (
                 <div key={label} style={{ marginBottom: "16px" }}>
                   <div style={{ fontSize: "7.5px", letterSpacing: "0.22em", color: "rgba(232,228,212,0.35)", textTransform: "uppercase", marginBottom: "8px" }}>{label}</div>
@@ -1070,9 +1075,9 @@ export default function QuizPage() {
 
               {saveError && <p style={{ fontSize: "9px", letterSpacing: "0.14em", color: RED, marginBottom: "16px", lineHeight: 1.5 }}>{saveError}</p>}
 
-              <button onClick={handleSignUp} disabled={saving}
+              <button onClick={handleWaitlist} disabled={saving}
                 style={{ ...btnRed, opacity: saving ? 0.6 : 1, cursor: saving ? "default" : "pointer", marginTop: "8px" }}>
-                {saving ? "Creating your ID…" : "Create account →"}
+                {saving ? "Reserving your spot…" : "Join Wave 01 →"}
               </button>
               <button onClick={() => setStep(7)} style={{ background: "transparent", color: "rgba(232,228,212,0.3)", fontFamily: "'DM Mono', monospace", fontSize: "8px", letterSpacing: "0.18em", textTransform: "uppercase", border: "none", cursor: "pointer", marginTop: "14px", padding: "8px" }}>
                 ← Back to my ID
@@ -1080,30 +1085,25 @@ export default function QuizPage() {
             </motion.div>
           )}
 
-          {/* ── 9: DONE ─── */}
+          {/* ── 9: WAITLIST CONFIRMED ─── */}
           {step === 9 && archetype && (
             <motion.div key="done" variants={fadeV} initial="initial" animate="animate" exit="exit" transition={fadeT} className="flex flex-col items-start">
               <div style={{ fontSize: "9px", letterSpacing: "0.28em", color: RED, textTransform: "uppercase", marginBottom: "20px" }}>Wave 01 · {memberNum}</div>
               <h2 style={{ fontFamily: "'Anton', sans-serif", fontSize: "clamp(44px, 12vw, 60px)", lineHeight: 0.88, color: "#E8E4D4", textTransform: "uppercase", marginBottom: "16px" }}>
-                WELCOME<br />TO THE<br /><span style={{ color: RED }}>CLUB.</span>
+                YOU&apos;RE<br />ON THE<br /><span style={{ color: RED }}>LIST.</span>
               </h2>
               <div style={{ width: "28px", height: "1.5px", background: RED, opacity: 0.6, marginBottom: "20px" }} />
               <p style={{ fontFamily: "'Anton', sans-serif", fontSize: "14px", letterSpacing: "0.06em", color: archetype.radarAc, textTransform: "uppercase", marginBottom: "8px" }}>{archetype.name}</p>
               <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "13px", fontStyle: "italic", fontWeight: 300, color: "rgba(232,228,212,0.5)", lineHeight: 1.7, marginBottom: "20px" }}>
-                {archetype.desc}
+                We&apos;ll email you when the app drops. Your number is locked — no one gets a lower one than you.
               </p>
               <button onClick={() => setStep(7)} style={{ ...btnGrey, marginBottom: "24px", fontSize: "8px" }}>
                 ← View your ID
               </button>
               <button onClick={shareCard} style={{ ...btnRed, marginBottom: "12px" }}>↑ Share your ID</button>
               <button onClick={downloadCard} style={{ ...btnGrey, marginBottom: "12px" }}>↓ Download</button>
-              {username && (
-                <p style={{ fontSize: "7.5px", letterSpacing: "0.16em", color: "rgba(232,228,212,0.25)", textTransform: "uppercase", textAlign: "center", width: "100%" }}>
-                  filmclub.com/u/{username}
-                </p>
-              )}
               <p style={{ fontSize: "7.5px", letterSpacing: "0.16em", color: "rgba(232,228,212,0.18)", textTransform: "uppercase", textAlign: "center", width: "100%", marginTop: "6px" }}>
-                Tag @filmclub - we share the best ones
+                Tag @filmclub — we share the best ones
               </p>
             </motion.div>
           )}

@@ -1,14 +1,12 @@
 /**
  * GET /api/member-number
  *
- * Returns the next available sequential Film Club member number.
+ * Returns the next available sequential Film Club member number
+ * based on the count of waitlist entries.
  * First person → FC-0001, second → FC-0002, etc.
- *
- * Uses the count of existing profiles rows + 1.
- * For production: swap for a Postgres sequence / atomic counter if needed.
  */
 import { createClient } from "@supabase/supabase-js";
-import { NextResponse } from "next/server";
+import { NextResponse }  from "next/server";
 
 export async function GET() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -24,14 +22,14 @@ export async function GET() {
     });
 
     const { count, error } = await supabase
-      .from("profiles")
+      .from("waitlist")
       .select("*", { count: "exact", head: true });
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const next = (count ?? 0) + 1;
+    const next      = (count ?? 0) + 1;
     const formatted = `FC-${String(next).padStart(4, "0")}`;
 
     return NextResponse.json({ number: next, formatted });
