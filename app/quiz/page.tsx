@@ -446,8 +446,7 @@ function IDCard({
       padding: "24px 22px 18px",
       position: "relative",
       overflow: "hidden",
-      border: `1px solid ${acLine}`,
-      boxShadow: `0 0 80px rgba(255,74,74,0.06), 0 32px 90px rgba(0,0,0,0.97), inset 0 1px 0 ${acLine}`,
+      boxShadow: `0 0 80px rgba(255,74,74,0.06), 0 32px 90px rgba(0,0,0,0.97), inset 0 0 0 1px ${acLine}, inset 0 1px 0 ${acLine}`,
       fontFamily: "'Courier New', Courier, monospace",
     }}>
       {/* Film grain */}
@@ -478,14 +477,14 @@ function IDCard({
           <div style={{ fontSize: "6px", letterSpacing: "2.5px", color: ac, opacity: 0.7, marginBottom: "3px", fontFamily: "'DM Mono', monospace" }}>
             EST. 2026
           </div>
-          {/* Wordmark: cream "FILM CLUB" + red "ID" badge inline */}
-          <div style={{ display: "flex", alignItems: "baseline", gap: "7px", lineHeight: 1 }}>
-            <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "28px", letterSpacing: "0.06em", color: "#fdf9e3", lineHeight: 1 }}>
-              FILM CLUB
-            </div>
-            <div style={{ background: ac, borderRadius: "2px", padding: "4px 7px", fontSize: "6px", letterSpacing: "2px", color: "#0d0c16", fontFamily: "'DM Mono', monospace", fontWeight: 700, alignSelf: "center", lineHeight: "1" }}>
+          {/* Wordmark: "FILM CLUB" cream + "ID" red, all Anton */}
+          <div style={{ display: "flex", alignItems: "baseline", gap: "0", lineHeight: 1 }}>
+            <span style={{ fontFamily: "'Anton', sans-serif", fontSize: "34px", letterSpacing: "0.06em", color: "#fdf9e3", lineHeight: 1 }}>
+              FILM CLUB 
+            </span>
+            <span style={{ fontFamily: "'Anton', sans-serif", fontSize: "34px", letterSpacing: "0.06em", color: ac, lineHeight: 1 }}>
               ID
-            </div>
+            </span>
           </div>
           <div style={{ fontSize: "6px", letterSpacing: "2px", color: "rgba(255,255,255,0.18)", marginTop: "4px", fontFamily: "'DM Mono', monospace" }}>
             IDENTITY PASSPORT · WAVE 01
@@ -537,7 +536,7 @@ function IDCard({
       {/* ── FILM CLUB TOP 3 ── */}
       <div style={{ borderTop: "1px solid rgba(255,74,74,0.18)", paddingTop: "13px", marginBottom: "14px", position: "relative", zIndex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "12px" }}>
-          <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "13px", letterSpacing: "3px", color: "#f0ede8", lineHeight: 1 }}>
+          <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "17px", letterSpacing: "3px", color: "#f0ede8", lineHeight: 1 }}>
             FILM CLUB TOP 3
           </div>
           <div style={{ flex: 1, height: "1px", background: `linear-gradient(90deg, ${acLine}, transparent)` }} />
@@ -637,13 +636,13 @@ function StoryCard({
       {/* ── HEADER ── */}
       <div style={{ position: "relative", zIndex: 1, marginBottom: "16px", flexShrink: 0 }}>
         <div style={{ fontSize: "7px", letterSpacing: "2.5px", color: ac, opacity: 0.65, marginBottom: "5px", fontFamily: "'DM Mono', monospace" }}>EST. 2026</div>
-        <div style={{ display: "flex", alignItems: "center", gap: "9px" }}>
-          <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "30px", letterSpacing: "0.06em", color: "#fdf9e3", lineHeight: 1 }}>
-            FILM CLUB
-          </div>
-          <div style={{ background: ac, borderRadius: "2px", padding: "4px 7px", fontSize: "7px", letterSpacing: "2px", color: "#0d0c16", fontFamily: "'DM Mono', monospace", fontWeight: 700, lineHeight: "1" }}>
+        <div style={{ display: "flex", alignItems: "baseline", gap: "0", lineHeight: 1 }}>
+          <span style={{ fontFamily: "'Anton', sans-serif", fontSize: "38px", letterSpacing: "0.06em", color: "#fdf9e3", lineHeight: 1 }}>
+            FILM CLUB 
+          </span>
+          <span style={{ fontFamily: "'Anton', sans-serif", fontSize: "38px", letterSpacing: "0.06em", color: ac, lineHeight: 1 }}>
             ID
-          </div>
+          </span>
         </div>
       </div>
 
@@ -689,7 +688,7 @@ function StoryCard({
         {/* Top 3 Films */}
         <div style={{ flexShrink: 0 }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-            <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "11px", letterSpacing: "3px", color: "#f0ede8", lineHeight: 1 }}>
+            <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "15px", letterSpacing: "3px", color: "#f0ede8", lineHeight: 1 }}>
               FILM CLUB TOP 3
             </div>
             <div style={{ flex: 1, height: "1px", background: `linear-gradient(90deg, ${acLine}, transparent)` }} />
@@ -711,9 +710,26 @@ function StoryCard({
           </div>
         </div>
 
+        {/* ── FILM DNA (compact bars) ── */}
+        <div style={{ flexShrink: 0, marginTop: "12px" }}>
+          <div style={{ fontSize: "6px", letterSpacing: "3px", color: "rgba(255,255,255,0.28)", marginBottom: "6px", fontFamily: "'DM Mono', monospace" }}>FILM DNA</div>
+          <div style={{ display: "flex", gap: "6px" }}>
+            {DNA_AXES.map((axis, i) => (
+              <div key={axis} style={{ flex: 1 }}>
+                <div style={{ height: "2px", background: "rgba(255,255,255,0.06)", borderRadius: "1px", overflow: "hidden", marginBottom: "3px" }}>
+                  <div style={{ height: "100%", width: `${(archetype.dna[i] / 10) * 100}%`, background: ac, opacity: 0.7, borderRadius: "1px" }} />
+                </div>
+                <div style={{ fontSize: "5px", letterSpacing: "0.5px", color: "rgba(255,255,255,0.35)", textAlign: "center" as const, fontFamily: "'DM Mono', monospace" }}>
+                  {axis.slice(0, 4)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Footer */}
         <div style={{ flexShrink: 0 }}>
-          <div style={{ height: "1px", background: "rgba(255,255,255,0.05)", marginTop: "14px", marginBottom: "10px" }} />
+          <div style={{ height: "1px", background: "rgba(255,255,255,0.05)", marginTop: "8px", marginBottom: "8px" }} />
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <div style={{ fontSize: "7px", letterSpacing: "2px", color: "rgba(255,255,255,0.2)", fontFamily: "'DM Mono', monospace" }}>FILM CLUB ID</div>
             <div style={{ fontSize: "8px", letterSpacing: "2px", color: ac, opacity: 0.5, fontWeight: 700, fontFamily: "'DM Mono', monospace" }}>JOINFILM.CLUB</div>
@@ -861,31 +877,32 @@ export default function QuizPage() {
     };
   }
 
+  /* downloadCard() always captures the 9:16 StoryCard — permanently rendered
+     off-screen so available on every step, and already optimised for
+     IG Story, TikTok & Snapchat (1080x1920 at scale:4). */
   async function downloadCard() {
-    if (!cardRef.current) return;
+    const el = storyRef.current ?? cardRef.current;
+    if (!el) return;
     try {
-      // Pre-convert all poster imgs to data URLs so html2canvas can capture them
       const imgs = Array.from(
-        cardRef.current.querySelectorAll("img[data-poster]")
+        el.querySelectorAll("img[data-story-poster], img[data-poster]")
       ) as HTMLImageElement[];
       const origSrcs: string[] = [];
       for (const img of imgs) {
         origSrcs.push(img.src);
         img.src = await toDataURL(img.src);
       }
-
-      const restoreSvgs = svgsToImages(cardRef.current);
+      const restoreSvgs = svgsToImages(el);
       const h2c = await import("html2canvas");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const html2canvas = (h2c as any).default ?? h2c;
-      const canvas = await html2canvas(cardRef.current, {
+      const canvas = await html2canvas(el, {
         scale: 4, useCORS: true, allowTaint: true, backgroundColor: null, logging: false,
+        width: el.scrollWidth, height: el.scrollHeight,
+        windowWidth: el.scrollWidth, windowHeight: el.scrollHeight,
       });
-
-      // Restore original srcs and SVGs
       imgs.forEach((img, i) => { img.src = origSrcs[i]; });
       restoreSvgs();
-
       const link = document.createElement("a");
       link.download = `filmclub-id-${archetype?.id ?? "card"}.png`;
       link.href = canvas.toDataURL("image/png");
