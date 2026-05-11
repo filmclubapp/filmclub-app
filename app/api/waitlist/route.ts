@@ -1,15 +1,47 @@
 /**
  * POST /api/waitlist
  *
- * Adds or updates a waitlist entry.
- * - New email  → inserts a row, returns { success, isNew: true }
- * - Known email → updates username / archetype / films but PRESERVES
+ * Adds or updates a waitlist entry, then subscribes the user to Mailchimp
+ * so the welcome email automation fires.
+ *
+ * - New email  -> inserts a row, subscribes to Mailchimp, returns { success, isNew: true }
+ * - Known email -> updates username / archetype / films but PRESERVES
  *   the original member_number (keeps their place in the queue),
  *   returns { success, isNew: false }
  */
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse }  from "next/server";
 
+/* -- Mailchimp ------------------------------------------------- */
+async function addToMailchimp(email: string, username: string | undefined) {
+  const apiKey = process.env.MAILCHIMP_API_KEY;
+  const listId = process.env.MAILCHIMP_AUDIENCE_ID;
+
+  if (!apiKey || !listId) return;
+
+  const dc   = apiKey.split("-").pop();
+  const auth = Buffer.from(`anystring:${apiKey}`).toString("base64");
+
+  try {
+    await fetch(`https://${dc}.api.mailchimp.com/3.0/lists/${listId}/members`, {
+      method:  "POST",
+      headers: {
+        "Content-Type":  "application/json",
+        "Authorization": `Basic ${auth}`,
+      },
+      body: JSON.stringify({
+        email_address: email,
+        status:        "subscribed",
+        tags:          ["new-signup"],
+        merge_fields:  { FNAME: username ?? "" },
+      }),
+    });
+  } catch {
+    // ignore
+  }
+}
+
+/* -- Route handler --------------------------------------------- */
 export async function POST(req: Request) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -47,7 +79,6 @@ export async function POST(req: Request) {
 
   const cleanEmail = email.trim().toLowerCase();
 
-  // Check if email already exists
   const { data: existing, error: checkErr } = await supabase
     .from("waitlist")
     .select("id, member_number")
@@ -59,7 +90,6 @@ export async function POST(req: Request) {
   }
 
   if (existing) {
-    // Duplicate email — update everything EXCEPT member_number
     const { error: updateErr } = await supabase
       .from("waitlist")
       .update({
@@ -81,7 +111,6 @@ export async function POST(req: Request) {
     });
   }
 
-  // New email — insert
   const { data: inserted, error: insertErr } = await supabase
     .from("waitlist")
     .insert({
@@ -97,6 +126,8 @@ export async function POST(req: Request) {
   if (insertErr) {
     return NextResponse.json({ error: insertErr.message }, { status: 500 });
   }
+
+  await addToMailchimp(cleanEmail, username);
 
   return NextResponse.json({
     success: true,
