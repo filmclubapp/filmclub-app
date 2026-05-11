@@ -879,7 +879,7 @@ export default function QuizPage() {
      off-screen so available on every step, and already optimised for
      IG Story, TikTok & Snapchat (1080x1920 at scale:4). */
   async function downloadCard() {
-    const el = storyRef.current ?? cardRef.current;
+    const el = cardRef.current ?? storyRef.current;
     if (!el) return;
     try {
       const imgs = Array.from(
@@ -908,10 +908,10 @@ export default function QuizPage() {
     } catch (e) { console.error(e); }
   }
 
-  /* Share card - renders the 9:16 StoryCard for IG/TikTok Stories.
+  /* Share card - captures the IDCard (cardRef) exactly as seen on screen.
      Native share sheet on mobile, download on desktop. */
   async function shareCard() {
-    const target = storyRef.current ?? cardRef.current;
+    const target = cardRef.current ?? storyRef.current;
     if (!target) return;
     try {
       // Pre-convert poster images to data-URLs for html2canvas
@@ -1084,7 +1084,9 @@ export default function QuizPage() {
                 {!hasAccount && (
                   <button onClick={() => setStep(8)} style={btnRed}>Join Wave 01 →</button>
                 )}
-                <button onClick={shareCard} style={hasAccount ? btnRed : btnGrey}>↑ Share your ID</button>
+                {hasAccount && (
+                  <button onClick={shareCard} style={btnRed}>↑ Share your ID</button>
+                )}
                 {hasAccount && (
                   <button onClick={downloadCard} style={btnGrey}>↓ Download</button>
                 )}
