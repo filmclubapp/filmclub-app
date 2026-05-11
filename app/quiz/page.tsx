@@ -589,151 +589,105 @@ function IDCard({
   );
 }
 
+/* ── Identity lines for the share card — one punchy sentence per archetype ── */
+const SHARE_DESCS: Record<string, string> = {
+  "neon-noirist":        "You find beauty in darkness others walk past.",
+  "emotional-architect": "You feel it completely — and understand exactly why.",
+  "slow-burn":           "Silence doesn't make you anxious. It makes you pay attention.",
+  "cosmic-romantic":     "You believe love is the most cinematic thing that exists.",
+  "concrete-realist":    "You have no patience for gloss. Just brutal, honest truth.",
+  "genre-subverter":     "You've always watched one level above everyone else.",
+  "auteur-devotee":      "You don't just watch films. You study how a mind sees the world.",
+  "deadpan":             "Warmth disguised as cool. Devastating when you least expect it.",
+};
+
 /* ══════════════════════════════════════════════════════════════
-   STORY CARD - 9:16 for IG / TikTok Stories
-   390 × 693 px  →  rendered at 3× = 1170 × 2079 (≈ 9:16)
+   STORY CARD - exact 9:16 for IG / TikTok / Reels
+   360 × 640 px  →  rendered at 3× = 1080 × 1920 (exact 9:16)
+   Minimal identity card: name + one sentence. Nothing else.
    ══════════════════════════════════════════════════════════════ */
 function StoryCard({
-  archetype, memberNumber, username, topFilms, cardRef,
+  archetype, memberNumber, cardRef,
 }: {
   archetype:    Archetype;
   memberNumber: string;
-  username:     string;
-  topFilms:     FilmPick[];
+  username?:    string;
+  topFilms?:    FilmPick[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cardRef: React.RefObject<any>;
 }) {
-  const ac      = RED;
-  const acLine  = "rgba(255,74,74,0.28)";
-  const acFaint = "rgba(255,74,74,0.10)";
-  const hasFilms   = topFilms.filter((f) => f.title).length === 3;
-  const displayFilms = hasFilms
-    ? topFilms
-    : archetype.films.map((t) => ({ title: t, year: "", posterPath: null, tmdbId: null }));
-
   return (
     <div ref={cardRef} style={{
-      width: "390px", height: "693px",
+      width: "360px", height: "640px",
       background: archetype.cardBg,
-      fontFamily: "'Courier New', Courier, monospace",
       position: "relative", overflow: "hidden",
-      display: "flex", flexDirection: "column",
-      padding: "28px 26px 24px",
-      boxSizing: "border-box",
     }}>
-      {/* Grain */}
-      <div style={{ position: "absolute", inset: 0, opacity: 0.05, pointerEvents: "none",
-        backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-        backgroundSize: "180px 180px",
+      {/* Subtle ambient glow from archetype accent colour */}
+      <div style={{
+        position: "absolute", inset: 0, pointerEvents: "none",
+        background: `radial-gradient(ellipse at 25% 70%, ${archetype.radarAc}0a 0%, transparent 60%)`,
       }} />
-      {/* Top red shimmer */}
-      <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1.5px", background: `linear-gradient(90deg, transparent 0%, ${ac} 50%, transparent 100%)`, opacity: 0.8 }} />
-      {/* Bottom shimmer */}
-      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "1px", background: `linear-gradient(90deg, transparent, ${acLine}, transparent)` }} />
 
-      {/* ── HEADER ── */}
-      <div style={{ position: "relative", zIndex: 1, marginBottom: "16px", flexShrink: 0 }}>
-        <div style={{ fontSize: "7px", letterSpacing: "2.5px", color: ac, opacity: 0.65, marginBottom: "5px", fontFamily: "'DM Mono', monospace" }}>EST. 2026</div>
-        <div style={{ display: "flex", alignItems: "baseline", gap: "0", lineHeight: 1 }}>
-          <span style={{ fontFamily: "'Anton', sans-serif", fontSize: "38px", letterSpacing: "0.06em", color: "#fdf9e3", lineHeight: 1 }}>
-            FILM CLUB 
-          </span>
-          <span style={{ fontFamily: "'Anton', sans-serif", fontSize: "38px", letterSpacing: "0.06em", color: ac, lineHeight: 1 }}>
-            ID
-          </span>
+      {/* Top bar: FILM CLUB · member number */}
+      <div style={{
+        position: "absolute", top: "40px", left: "32px", right: "32px",
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+      }}>
+        <span style={{ fontFamily: "'Courier New', monospace", fontSize: "7.5px", letterSpacing: "0.32em", color: "rgba(232,228,212,0.22)", textTransform: "uppercase" }}>
+          FILM CLUB
+        </span>
+        <span style={{ fontFamily: "'Courier New', monospace", fontSize: "7.5px", letterSpacing: "0.18em", color: "rgba(232,228,212,0.16)" }}>
+          {memberNumber}
+        </span>
+      </div>
+
+      {/* Main content block — anchored to lower third for cinematic weight */}
+      <div style={{ position: "absolute", bottom: "120px", left: "32px", right: "32px" }}>
+        {/* Red rule above name */}
+        <div style={{ width: "28px", height: "2px", background: RED, opacity: 0.9, marginBottom: "20px" }} />
+        {/* Archetype name — the hero element */}
+        <div style={{
+          fontFamily: "'Anton', sans-serif",
+          fontSize: "80px",
+          lineHeight: 0.86,
+          color: "#E8E4D4",
+          textTransform: "uppercase",
+          letterSpacing: "0.01em",
+          marginBottom: "26px",
+        }}>
+          {archetype.name}
+        </div>
+        {/* Gradient separator */}
+        <div style={{
+          height: "0.5px",
+          background: `linear-gradient(to right, ${RED}60, transparent 65%)`,
+          marginBottom: "20px",
+        }} />
+        {/* Identity sentence */}
+        <div style={{
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: "16px",
+          fontStyle: "italic",
+          fontWeight: 300,
+          color: "rgba(232,228,212,0.58)",
+          lineHeight: 1.58,
+          letterSpacing: "0.005em",
+        }}>
+          {SHARE_DESCS[archetype.id] ?? archetype.tagline}
         </div>
       </div>
 
-      {/* divider */}
-      <div style={{ height: "1px", background: "rgba(255,74,74,0.18)", marginBottom: "20px", position: "relative", zIndex: 1, flexShrink: 0 }} />
-
-      {/* ── ARCHETYPE ── */}
-      <div style={{ position: "relative", zIndex: 1, flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between", minHeight: 0 }}>
-
-        {/* Identity block */}
-        <div style={{ flexShrink: 0 }}>
-          <div style={{ fontSize: "7px", letterSpacing: "2px", color: ac, fontWeight: 700, marginBottom: "8px", opacity: 0.75 }}>
-            ◆ {archetype.id.replace(/-/g, " ").toUpperCase()}
-          </div>
-          <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "52px", letterSpacing: "0.5px", color: "#f0ede8", lineHeight: 0.92, marginBottom: "10px", textShadow: `0 0 40px rgba(255,74,74,0.35)` }}>
-            {archetype.name}
-          </div>
-          {/* Member number sits directly under the name */}
-          <div style={{ display: "flex", alignItems: "baseline", gap: "10px", marginBottom: "10px" }}>
-            <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "20px", color: ac, lineHeight: 1, textShadow: `0 0 20px rgba(255,74,74,0.5)` }}>
-              {memberNumber}
-            </div>
-            <div style={{ fontSize: "10px", letterSpacing: "4px", color: "rgba(255,255,255,0.6)", fontWeight: 700 }}>
-              {(username || "YOUR NAME").toUpperCase()}
-            </div>
-          </div>
-          <div style={{ height: "1px", background: "rgba(255,255,255,0.06)", marginBottom: "10px" }} />
-          <div style={{ fontSize: "12px", letterSpacing: "0.6px", fontStyle: "italic", color: ac, opacity: 0.85, marginBottom: "10px" }}>
-            {archetype.tagline}
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap" as const, gap: "8px", marginBottom: "14px" }}>
-            {archetype.tags.map((tag, i) => (
-              <span key={tag} style={{
-                fontSize: "7px", letterSpacing: "1.5px", color: "rgba(232,228,212,0.45)",
-                textTransform: "uppercase" as const,
-              }}>
-                {tag}{i < archetype.tags.length - 1 ? " ·" : ""}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Top 3 Films */}
-        <div style={{ flexShrink: 0 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-            <div style={{ fontFamily: "'Anton', sans-serif", fontSize: "15px", letterSpacing: "3px", color: "#f0ede8", lineHeight: 1 }}>
-              FILM CLUB TOP 3
-            </div>
-            <div style={{ flex: 1, height: "1px", background: `linear-gradient(90deg, ${acLine}, transparent)` }} />
-          </div>
-          <div style={{ display: "flex", gap: "8px" }}>
-            {displayFilms.map((film, i) => (
-              <div key={i} style={{ flex: 1 }}>
-                <div style={{ width: "100%", aspectRatio: "2/3", borderRadius: "4px", overflow: "hidden", marginBottom: "6px", background: "rgba(255,255,255,0.04)", border: film.posterPath ? "none" : "1px dashed rgba(255,255,255,0.14)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  {film.posterPath
-                    ? <img src={posterSrc(film.posterPath)} alt={film.title} data-story-poster="1" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-                    : <span style={{ color: "rgba(255,255,255,0.12)", fontSize: "20px" }}>＋</span>
-                  }
-                </div>
-                <div style={{ fontSize: "7px", letterSpacing: "0.6px", color: "rgba(255,255,255,0.55)", textAlign: "center" as const, textTransform: "uppercase" as const, lineHeight: 1.3 }}>
-                  {film.title}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── FILM DNA (compact bars) ── */}
-        <div style={{ flexShrink: 0, marginTop: "12px" }}>
-          <div style={{ fontSize: "6px", letterSpacing: "3px", color: "rgba(255,255,255,0.28)", marginBottom: "6px", fontFamily: "'DM Mono', monospace" }}>FILM DNA</div>
-          <div style={{ display: "flex", gap: "6px" }}>
-            {DNA_AXES.map((axis, i) => (
-              <div key={axis} style={{ flex: 1 }}>
-                <div style={{ height: "2px", background: "rgba(255,255,255,0.06)", borderRadius: "1px", overflow: "hidden", marginBottom: "3px" }}>
-                  <div style={{ height: "100%", width: `${(archetype.dna[i] / 10) * 100}%`, background: ac, opacity: 0.7, borderRadius: "1px" }} />
-                </div>
-                <div style={{ fontSize: "5px", letterSpacing: "0.5px", color: "rgba(255,255,255,0.35)", textAlign: "center" as const, fontFamily: "'DM Mono', monospace" }}>
-                  {axis.slice(0, 4)}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div style={{ flexShrink: 0 }}>
-          <div style={{ height: "1px", background: "rgba(255,255,255,0.05)", marginTop: "8px", marginBottom: "8px" }} />
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <div style={{ fontSize: "7px", letterSpacing: "2px", color: "rgba(255,255,255,0.2)", fontFamily: "'DM Mono', monospace" }}>FILM CLUB ID</div>
-            <div style={{ fontSize: "8px", letterSpacing: "2px", color: ac, opacity: 0.5, fontWeight: 700, fontFamily: "'DM Mono', monospace" }}>JOINFILM.CLUB</div>
-          </div>
-        </div>
-
+      {/* Bottom: FIND YOURS · FILMCLUB.APP */}
+      <div style={{
+        position: "absolute", bottom: "40px", left: "32px", right: "32px",
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+      }}>
+        <span style={{ fontFamily: "'Courier New', monospace", fontSize: "7px", letterSpacing: "0.28em", color: RED, textTransform: "uppercase", opacity: 0.8 }}>
+          FIND YOURS
+        </span>
+        <span style={{ fontFamily: "'Courier New', monospace", fontSize: "7px", letterSpacing: "0.18em", color: "rgba(232,228,212,0.2)", textTransform: "uppercase" }}>
+          FILMCLUB.APP
+        </span>
       </div>
     </div>
   );
@@ -908,10 +862,10 @@ export default function QuizPage() {
     } catch (e) { console.error(e); }
   }
 
-  /* Share card - captures the IDCard (cardRef) exactly as seen on screen.
-     Native share sheet on mobile, download on desktop. */
+  /* Share card - renders the 9:16 StoryCard (storyRef) for IG/TikTok/Reels.
+     Exact 1080×1920 at 3×. Native share sheet on mobile, download on desktop. */
   async function shareCard() {
-    const target = cardRef.current ?? storyRef.current;
+    const target = storyRef.current ?? cardRef.current;
     if (!target) return;
     try {
       // Pre-convert poster images to data-URLs for html2canvas
