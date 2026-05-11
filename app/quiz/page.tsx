@@ -14,8 +14,6 @@
 
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-// useAuth removed — quiz now uses waitlist instead of full account creation
-import { supabase } from "../lib/supabase";
 
 /* ── Design tokens ──────────────────────────────────────────── */
 const BG  = "#0d0c16";
